@@ -42,6 +42,10 @@
             android:exported="false" />
 
         <activity
+            android:name=".MiRutinaActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".ReservationActivity"
             android:exported="false" />
 

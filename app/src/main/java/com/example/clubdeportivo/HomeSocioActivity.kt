@@ -13,24 +13,19 @@ class HomeSocioActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_socio)
 
-        // Referencias a las vistas del layout
         val tvUserName = findViewById<TextView>(R.id.tvUserName)
         val tvAvatar = findViewById<TextView>(R.id.tvAvatar)
         val btnVerCredencial = findViewById<AppCompatButton>(R.id.btnVerCredencial)
 
-        // Botones de Accesos Rápidos
         val btnReservarClase = findViewById<LinearLayout>(R.id.btnReservarClase)
         val btnMisClases = findViewById<LinearLayout>(R.id.btnMisClases)
         val btnMiRutina = findViewById<LinearLayout>(R.id.btnMiRutina)
         val btnNutricion = findViewById<LinearLayout>(R.id.btnNutricion)
 
-        // Tarjeta de Próxima Clase
         val btnProximaClase = findViewById<LinearLayout>(R.id.btnProximaClase)
 
-        // Subtítulo de la tarjeta "Mis clases"
         val tvMisClasesCount = findViewById<TextView>(R.id.tvMisClasesCount)
 
-        // Configuración de los eventos Click (puedes reemplazar los Toast por Intent hacia nuevas pantallas)
         btnVerCredencial.setOnClickListener {
             Toast.makeText(this, "Mostrando Credencial Digital...", Toast.LENGTH_SHORT).show()
         }
@@ -44,7 +39,7 @@ class HomeSocioActivity : AppCompatActivity() {
         }
 
         btnMiRutina.setOnClickListener {
-            Toast.makeText(this, "Abrir pantalla: Mi rutina", Toast.LENGTH_SHORT).show()
+            startActivity(android.content.Intent(this, MiRutinaActivity::class.java))
         }
 
         btnNutricion.setOnClickListener {
@@ -64,7 +59,6 @@ class HomeSocioActivity : AppCompatActivity() {
         actualizarContadorReservas(findViewById<TextView>(R.id.tvMisClasesCount))
     }
 
-    /** Escribe "0 reservadas", "1 reservada" o "N reservadas" según el store. */
     private fun actualizarContadorReservas(contador: TextView) {
         val cantidad = ReservationStore.getAll().size
         if (cantidad == 1) {
