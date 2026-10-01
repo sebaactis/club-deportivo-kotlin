@@ -1,4 +1,7 @@
-package com.example.clubdeportivo
+package com.example.clubdeportivo.ui.inicio
+
+import com.example.clubdeportivo.R
+import com.example.clubdeportivo.ui.acceso.LoginActivity
 
 import android.content.Intent
 import android.os.Bundle

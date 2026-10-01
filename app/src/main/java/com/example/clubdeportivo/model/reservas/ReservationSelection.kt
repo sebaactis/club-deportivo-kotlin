@@ -1,4 +1,4 @@
-package com.example.clubdeportivo
+package com.example.clubdeportivo.model.reservas
 
 /** Holds the user's current reservation choices without depending on Android. */
 data class ReservationSelection(

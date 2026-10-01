@@ -52,6 +52,19 @@
             android:textSize="14sp"
             android:visibility="gone" />
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/reserveClassButton"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:minHeight="48dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_badge_yellow"
+            android:text="Reservar clase"
+            android:textAllCaps="false"
+            android:textColor="#071326"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
         <!-- Contenedor vacío: las tarjetas de cada clase se agregan desde el código -->
         <LinearLayout
             android:id="@+id/classList"

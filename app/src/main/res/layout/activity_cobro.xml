@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#071326"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnVolverCobro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:text="← Volver a Recepción"
+            android:textAllCaps="false"
+            android:background="@drawable/bg_badge_blue"
+            android:textColor="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/tvTituloCobro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Demo en memoria: no se mueve dinero real. Importes en ARS. Los datos se reinician al cerrar el proceso. No emite comprobantes fiscales ni credenciales de acceso."
+            android:textColor="#94A3B8"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tvPersonaCobro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tvTarifasActuales"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:accessibilityLiveRegion="polite"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Usa coma o punto para decimales, sin separadores de miles. Ambos importes deben ser positivos, con hasta 2 decimales. Ejemplo: 1234,50 (no 1.234,50). Volver no guarda los cambios."
+            android:textColor="#94A3B8"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:labelFor="@id/etTarifaMensual"
+            android:text="Tarifa mensual en ARS · Socio · 30 días calendario"
+            android:textColor="#FFFFFF" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/etTarifaMensual"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:inputType="numberDecimal"
+            android:digits="0123456789,."
+            android:singleLine="true"
+            android:hint="Importe mensual sin miles"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#94A3B8"
+            android:backgroundTint="#3B82F6" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:labelFor="@id/etTarifaDiaria"
+            android:text="Tarifa diaria en ARS · No Socio · 1 día calendario"
+            android:textColor="#FFFFFF" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/etTarifaDiaria"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:inputType="numberDecimal"
+            android:digits="0123456789,."
+            android:singleLine="true"
+            android:hint="Importe diario sin miles"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#94A3B8"
+            android:backgroundTint="#3B82F6" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnGuardarTarifas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:minHeight="48dp"
+            android:text="Guardar ambas tarifas"
+            android:textAllCaps="false"
+            android:background="@drawable/bg_badge_blue"
+            android:textColor="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/tvMensajeCobro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:accessibilityLiveRegion="polite"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tvResumenCobro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:accessibilityLiveRegion="polite"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnVerComprobanteCobro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:minHeight="48dp"
+            android:text="Ver comprobante"
+            android:textAllCaps="false"
+            android:background="@drawable/bg_badge_blue"
+            android:textColor="#FFFFFF"
+            android:visibility="gone" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnPrevisualizarCobro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:minHeight="48dp"
+            android:text="Revisar y confirmar cobro simulado"
+            android:textAllCaps="false"
+            android:background="@drawable/bg_badge_blue"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
+</ScrollView>

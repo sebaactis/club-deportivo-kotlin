@@ -21,6 +21,7 @@
             android:textSize="14sp" />
 
         <TextView
+            android:id="@+id/reservationTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="18dp"
@@ -33,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
-            android:text="Elegí qué y cuándo querés entrenar."
+            android:text="Elige qué y cuándo quieres entrenar."
             android:textColor="#94A3B8"
             android:textSize="14sp" />
 

@@ -14,7 +14,7 @@
 
         <!-- Pantalla de Selección de Perfil / Bienvenida -->
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.clubdeportivo.ui.inicio.MainActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
@@ -26,36 +26,71 @@
 
         <!-- Pantalla de Login -->
         <activity
-            android:name=".LoginActivity"
+            android:name="com.example.clubdeportivo.ui.acceso.LoginActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 
         <!-- Pantalla Principal del Socio -->
         <activity
-            android:name=".HomeSocioActivity"
+            android:name="com.example.clubdeportivo.ui.socio.HomeSocioActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 
+        <activity
+            android:name="com.example.clubdeportivo.ui.socio.CredencialActivity"
+            android:exported="false" />
+
         <!-- Pantalla de Clases Reservadas -->
         <activity
-            android:name=".MisClasesActivity"
+            android:name="com.example.clubdeportivo.ui.socio.MisClasesActivity"
             android:exported="false" />
 
         <activity
-            android:name=".MiRutinaActivity"
+            android:name="com.example.clubdeportivo.ui.socio.MiRutinaActivity"
             android:exported="false" />
 
         <activity
-            android:name=".ReservationActivity"
+            android:name="com.example.clubdeportivo.ui.nutricion.NutricionActivity"
             android:exported="false" />
 
         <activity
-            android:name=".ReservationConfirmationActivity"
+            android:name="com.example.clubdeportivo.ui.reservas.ReservationActivity"
             android:exported="false" />
+
+        <activity
+            android:name="com.example.clubdeportivo.ui.reservas.ReservationConfirmationActivity"
+            android:exported="false" />
+
+        <activity
+            android:name="com.example.clubdeportivo.ui.profesor.ClasesProfesorActivity"
+            android:exported="false" />
+
+        <activity
+            android:name="com.example.clubdeportivo.ui.profesor.AsistenciaProfesorActivity"
+            android:exported="false" />
+
+        <activity
+            android:name="com.example.clubdeportivo.ui.recepcion.ReceptionActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name="com.example.clubdeportivo.ui.recepcion.CobroActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name="com.example.clubdeportivo.ui.recepcion.HistorialPagosActivity"
+            android:exported="false" />
+
+        <activity
+            android:name="com.example.clubdeportivo.ui.recepcion.PersonaFormActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
 
         <!-- Pantalla Principal del Profesor / Staff -->
         <activity
-            android:name=".HomeProfesorActivity"
+            android:name="com.example.clubdeportivo.ui.profesor.HomeProfesorActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 

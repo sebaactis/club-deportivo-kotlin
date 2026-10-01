@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#071326"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnVolverReception"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:background="@drawable/bg_badge_blue"
+            android:text="← Volver a Mis clases"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Recepción · Personas"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Datos de ejemplo en memoria; se reinician al cerrar el proceso. No verifican identidad ni pagos reales."
+            android:textColor="#94A3B8"
+            android:textSize="14sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnNuevaPersonaReception"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:minHeight="48dp"
+            android:background="@drawable/bg_badge_blue"
+            android:text="Nueva persona"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnConfigurarTarifasReception"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:minHeight="48dp"
+            android:background="@drawable/bg_badge_blue"
+            android:text="Configurar tarifas"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnHistorialGeneralReception"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:minHeight="48dp"
+            android:background="@drawable/bg_badge_blue"
+            android:text="Historial general de cobros"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnResumenVencidos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:minHeight="48dp"
+            android:background="@drawable/bg_card"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:labelFor="@id/etBuscarDniReception"
+            android:text="Buscar DNI exacto: 7 u 8 dígitos, sin puntos ni espacios. Vacío muestra todos."
+            android:textColor="#94A3B8"
+            android:textSize="14sp" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/etBuscarDniReception"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:hint="DNI de ejemplo"
+            android:inputType="text"
+            android:singleLine="true"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#94A3B8"
+            android:backgroundTint="#3B82F6" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnTipoReception"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:background="@drawable/bg_card"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF" />
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/cbSoloVencidosReception"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:buttonTint="#3B82F6"
+            android:text="Solo vencidos"
+            android:textColor="#FFFFFF" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnLimpiarFiltrosReception"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:background="@drawable/bg_card"
+            android:text="Limpiar búsqueda y filtros"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/tvResultadoReception"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="12dp"
+            android:accessibilityLiveRegion="polite"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:id="@+id/listaPersonasReception"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </LinearLayout>
+</ScrollView>

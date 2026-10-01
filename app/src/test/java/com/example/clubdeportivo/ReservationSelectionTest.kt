@@ -1,5 +1,7 @@
 package com.example.clubdeportivo
 
+import com.example.clubdeportivo.model.reservas.ReservationSelection
+
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull

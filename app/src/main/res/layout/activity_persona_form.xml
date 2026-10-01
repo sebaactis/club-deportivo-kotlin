@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#071326"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnVolverPersona"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:background="@drawable/bg_badge_blue"
+            android:text="← Volver sin guardar"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/tvTituloPersona"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="12dp"
+            android:text="Registro demo. Las altas comienzan Sin pagar; editar no modifica el vencimiento. Solo Guardar aplica los cambios."
+            android:textColor="#94A3B8"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:labelFor="@id/etNombrePersona"
+            android:text="Nombre (obligatorio)"
+            android:textColor="#FFFFFF" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/etNombrePersona"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:backgroundTint="#3B82F6"
+            android:inputType="textPersonName|textCapWords"
+            android:saveEnabled="false"
+            android:singleLine="true"
+            android:textColor="#FFFFFF" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:labelFor="@id/etApellidoPersona"
+            android:text="Apellido (obligatorio)"
+            android:textColor="#FFFFFF" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/etApellidoPersona"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:backgroundTint="#3B82F6"
+            android:inputType="textPersonName|textCapWords"
+            android:saveEnabled="false"
+            android:singleLine="true"
+            android:textColor="#FFFFFF" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:labelFor="@id/etDniPersona"
+            android:text="DNI: 7 u 8 dígitos, sin puntos ni espacios internos; no todos ceros (obligatorio)"
+            android:textColor="#FFFFFF" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/etDniPersona"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:backgroundTint="#3B82F6"
+            android:inputType="number"
+            android:saveEnabled="false"
+            android:singleLine="true"
+            android:textColor="#FFFFFF" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnTipoPersona"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:minHeight="48dp"
+            android:background="@drawable/bg_card"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/tvMensajePersona"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="12dp"
+            android:accessibilityLiveRegion="polite"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnGuardarPersona"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:background="@drawable/bg_badge_blue"
+            android:text="Guardar"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
+</ScrollView>

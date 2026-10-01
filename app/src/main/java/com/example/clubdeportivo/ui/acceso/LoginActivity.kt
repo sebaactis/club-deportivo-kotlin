@@ -1,4 +1,8 @@
-package com.example.clubdeportivo
+package com.example.clubdeportivo.ui.acceso
+
+import com.example.clubdeportivo.R
+import com.example.clubdeportivo.ui.profesor.HomeProfesorActivity
+import com.example.clubdeportivo.ui.socio.HomeSocioActivity
 
 import android.content.Intent
 import android.graphics.Color

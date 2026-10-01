@@ -1,4 +1,6 @@
-package com.example.clubdeportivo
+package com.example.clubdeportivo.ui.socio
+
+import com.example.clubdeportivo.R
 
 import android.content.res.ColorStateList
 import android.graphics.Paint

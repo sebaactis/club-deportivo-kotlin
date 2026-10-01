@@ -1,5 +1,11 @@
-package com.example.clubdeportivo
+package com.example.clubdeportivo.ui.profesor
 
+import com.example.clubdeportivo.R
+import com.example.clubdeportivo.ui.recepcion.ReceptionActivity
+
+import com.example.clubdeportivo.data.profesor.ProfesorStore
+
+import android.content.Intent
 import android.os.Bundle
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -13,27 +19,34 @@ class HomeProfesorActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_profesor)
 
-        // Referencias del layout
+
         val btnEscanearQr = findViewById<AppCompatButton>(R.id.btnEscanearQr)
         val btnTomarAsistencia = findViewById<LinearLayout>(R.id.btnTomarAsistencia)
         val btnMisClasesProfesor = findViewById<LinearLayout>(R.id.btnMisClasesProfesor)
         val btnProximaClaseProfesor = findViewById<LinearLayout>(R.id.btnProximaClaseProfesor)
 
-        // Eventos Click
+        findViewById<AppCompatButton>(R.id.btnReceptionProfesor).setOnClickListener {
+            startActivity(Intent(this, ReceptionActivity::class.java))
+        }
+        findViewById<AppCompatButton>(R.id.btnSelectorClasesProfesor).setOnClickListener {
+            startActivity(Intent(this, ClasesProfesorActivity::class.java))
+        }
+
         btnEscanearQr.setOnClickListener {
             Toast.makeText(this, "Abriendo escáner QR de socios...", Toast.LENGTH_SHORT).show()
         }
 
         btnTomarAsistencia.setOnClickListener {
-            Toast.makeText(this, "Abrir lista de asistencia de inscriptos", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, ClasesProfesorActivity::class.java))
         }
 
         btnMisClasesProfesor.setOnClickListener {
-            Toast.makeText(this, "Abrir agenda de clases del profesor", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, ClasesProfesorActivity::class.java))
         }
 
         btnProximaClaseProfesor.setOnClickListener {
-            Toast.makeText(this, "Ver detalles de la clase de Funcional", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, AsistenciaProfesorActivity::class.java)
+                .putExtra(AsistenciaProfesorActivity.EXTRA_CLASE_ID, ProfesorStore.CLASE_PROXIMA_ID))
         }
     }
 }

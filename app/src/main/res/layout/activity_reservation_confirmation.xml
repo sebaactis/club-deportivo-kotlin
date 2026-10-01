@@ -16,10 +16,11 @@
         android:textSize="14sp" />
 
     <TextView
+        android:id="@+id/confirmationTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
-        android:text="Confirmá tu reserva"
+        android:text="Confirmar reserva"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
         android:textStyle="bold" />
@@ -28,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Revisá los datos antes de confirmar."
+        android:text="Revisa los datos antes de confirmar."
         android:textColor="#94A3B8"
         android:textSize="14sp" />
 
@@ -64,7 +65,7 @@
         android:layout_height="48dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/bg_input_field"
-        android:text="Modificar horario"
+        android:text="Modificar selección"
         android:textAllCaps="false"
         android:textColor="#FFFFFF" />
 </LinearLayout>

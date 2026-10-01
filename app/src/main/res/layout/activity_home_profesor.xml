@@ -54,6 +54,38 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
+        <!-- Selector de áreas del staff; conserva el panel de clases. -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnSelectorClasesProfesor"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="6dp"
+                android:minHeight="48dp"
+                android:background="@drawable/bg_badge_blue"
+                android:text="Mis clases"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnReceptionProfesor"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="6dp"
+                android:minHeight="48dp"
+                android:background="@drawable/bg_card"
+                android:text="Recepción"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF" />
+        </LinearLayout>
+
         <!-- TARJETA: Estado de Staff / Asistencia -->
         <LinearLayout
             android:layout_width="match_parent"

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#071326"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnVolverHistorial"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:background="@drawable/bg_badge_blue"
+            android:text="← Volver"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/tvTituloHistorial"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Comprobante simulado. No fiscal. Sin validez para acceso al club. Demo en memoria: los datos se reinician al cerrar el proceso. Consultar no realiza cobros."
+            android:textColor="#94A3B8"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tvAlcanceHistorial"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textColor="#94A3B8"
+            android:textSize="14sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnDetalleHistorial"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:minHeight="48dp"
+            android:background="@drawable/bg_badge_blue"
+            android:text="Ver comprobante seleccionado"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tvResultadoHistorial"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="12dp"
+            android:accessibilityLiveRegion="polite"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:id="@+id/listaHistorialPagos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </LinearLayout>
+</ScrollView>
