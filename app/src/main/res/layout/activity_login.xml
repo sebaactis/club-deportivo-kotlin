@@ -1,235 +1,212 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/accessRoot"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#071326"
-    android:padding="24dp">
-
-    <!-- Header: Volver + Selector Idioma + Modo Oscuro -->
-    <TextView
-        android:id="@+id/btnBack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="‹  Volver"
-        android:textColor="#94A3B8"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/layoutLang"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/layoutLang" />
-
-    <LinearLayout
-        android:id="@+id/layoutLang"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="12dp"
-        android:background="@drawable/bg_lang_selector"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="4dp"
-        app:layout_constraintEnd_toStartOf="@+id/btnTheme"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_card"
-            android:paddingHorizontal="10dp"
-            android:paddingVertical="4dp"
-            android:text="ES"
-            android:textColor="#FFFFFF"
-            android:textSize="12sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="10dp"
-            android:paddingVertical="4dp"
-            android:text="EN"
-            android:textColor="#64748B"
-            android:textSize="12sp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-    <ImageView
-        android:id="@+id/btnTheme"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:background="@drawable/bg_lang_selector"
-        android:padding="8dp"
-        android:src="@android:drawable/ic_menu_compass"
-        app:layout_constraintBottom_toBottomOf="@+id/layoutLang"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/layoutLang"
-        app:tint="#FFFFFF" />
-
-    <!-- Etiqueta Dinámica (SOCIO / PROFESOR) -->
-    <TextView
-        android:id="@+id/tvRoleBadge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:background="@drawable/bg_badge_yellow"
-        android:paddingHorizontal="16dp"
-        android:paddingVertical="6dp"
-        android:text="SOCIO"
-        android:textColor="#071326"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnBack" />
-
-    <TextView
-        android:id="@+id/tvTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Ingresá a tu cuenta"
-        android:textColor="#FFFFFF"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvRoleBadge" />
-
-    <TextView
-        android:id="@+id/tvSubtitle"
+    android:layout_height="match_parent">
+    <ScrollView
+        android:id="@+id/accessScroll"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Usá tu DNI que utilizaste al momento de registrarte."
-        android:textColor="#94A3B8"
-        android:textSize="15sp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        android:clipToPadding="false"
+        app:layout_constraintWidth_max="520dp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
-
-    <!-- Campo DNI -->
-    <TextView
-        android:id="@+id/lblDni"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:text="DNI"
-        android:textColor="#94A3B8"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvSubtitle" />
-
-    <EditText
-        android:id="@+id/etDni"
-        android:layout_width="0dp"
-        android:layout_height="52dp"
-        android:layout_marginTop="6dp"
-        android:background="@drawable/bg_input_field"
-        android:hint="30.123.456"
-        android:inputType="number"
-        android:paddingHorizontal="16dp"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#475569"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lblDni" />
-
-    <!-- Campo Contraseña -->
-    <TextView
-        android:id="@+id/lblPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Contraseña"
-        android:textColor="#94A3B8"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etDni" />
-
-    <RelativeLayout
-        android:id="@+id/layoutPassword"
-        android:layout_width="0dp"
-        android:layout_height="52dp"
-        android:layout_marginTop="6dp"
-        android:background="@drawable/bg_input_field"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lblPassword">
-
-        <EditText
-            android:id="@+id/etPassword"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_toStartOf="@+id/tvTogglePassword"
-            android:background="@null"
-            android:hint="••••••••"
-            android:inputType="textPassword"
-            android:paddingHorizontal="16dp"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#475569" />
-
-        <TextView
-            android:id="@+id/tvTogglePassword"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:gravity="center"
-            android:paddingHorizontal="16dp"
-            android:text="Mostrar"
-            android:textColor="#FFC82C"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-    </RelativeLayout>
-
-    <TextView
-        android:id="@+id/btnForgotPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="¿Olvidaste tu contraseña?"
-        android:textColor="#94A3B8"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layoutPassword" />
-
-    <!-- Botón Principal Ingresar -->
-    <Button
-        android:id="@+id/btnSubmit"
-        android:layout_width="0dp"
-        android:layout_height="54dp"
-        android:layout_marginTop="28dp"
-        android:backgroundTint="#FFC82C"
-        android:text="Ingresar"
-        android:textColor="#071326"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:cornerRadius="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnForgotPassword" />
-
-    <TextView
-        android:id="@+id/tvDivider"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="o"
-        android:textColor="#64748B"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnSubmit" />
-
-    <!-- Botón Carnet QR -->
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnQr"
-        android:layout_width="0dp"
-        android:layout_height="54dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/bg_card"
-        android:text="Ingresar con carnet QR"
-        android:textAllCaps="false"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvDivider" />
-
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnBack"
+                    style="@style/access_language"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="start|center_vertical"
+                    android:text="@string/access_back" />
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnEs"
+                    style="@style/access_language"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:text="@string/access_es" />
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnEn"
+                    style="@style/access_language"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:text="@string/access_en" />
+            </LinearLayout>
+            <TextView
+                android:id="@+id/tvRoleBadge"
+                style="@style/access_text_badge"
+                android:layout_width="wrap_content"
+                android:layout_height="27dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
+                android:background="@drawable/access_badge_member" />
+            <TextView
+                android:id="@+id/tvTitle"
+                style="@style/access_text_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp" />
+            <TextView
+                android:id="@+id/tvSubtitle"
+                style="@style/access_text_body"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp" />
+            <TextView
+                android:id="@+id/lblDni"
+                style="@style/access_text_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:labelFor="@id/etDni"
+                android:text="@string/access_dni" />
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/etDni"
+                style="@style/access_input"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_marginTop="8dp"
+                android:inputType="textNoSuggestions"
+                android:singleLine="true"
+                android:imeOptions="actionNext"
+                android:hint="@string/access_dni_hint" />
+            <TextView
+                android:id="@+id/lblPassword"
+                style="@style/access_text_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:labelFor="@id/etPassword"
+                android:text="@string/access_password" />
+            <LinearLayout
+                android:id="@+id/layoutPassword"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:addStatesFromChildren="true"
+                android:background="@drawable/access_input_member">
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/etPassword"
+                    style="@style/access_input"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:inputType="textPassword"
+                    android:singleLine="true"
+                    android:imeOptions="actionDone"
+                    android:hint="@string/access_password_hint"
+                    android:saveEnabled="false" />
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/tvTogglePassword"
+                    style="@style/access_language"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:background="@null" />
+            </LinearLayout>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnForgotPassword"
+                style="@style/access_language"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:gravity="end|center_vertical"
+                android:background="@null"
+                android:text="@string/access_forgot" />
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="6dp">
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnSubmit"
+                    style="@style/access_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/access_submit" />
+                <ProgressBar
+                    android:id="@+id/accessLoading"
+                    style="?android:attr/progressBarStyleSmall"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="start|center_vertical"
+                    android:layout_marginStart="24dp"
+                    android:indeterminateTint="@color/access_on_accent"
+                    android:contentDescription="@string/access_loading"
+                    android:visibility="gone" />
+            </FrameLayout>
+            <TextView
+                android:id="@+id/tvDivider"
+                style="@style/access_text_caption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:text="@string/access_or" />
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnQr"
+                style="@style/access_button_secondary"
+                android:layout_width="match_parent"
+                android:layout_height="56dp" />
+            <TextView
+                android:id="@+id/accessBanner"
+                style="@style/access_text_error"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:accessibilityLiveRegion="polite"
+                android:visibility="gone" />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_weight="1" />
+            <LinearLayout
+                android:id="@+id/accessRegistration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <TextView
+                    android:id="@+id/tvNoAccount"
+                    style="@style/access_text_caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/access_no_account" />
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnRegister"
+                    style="@style/access_language"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:background="@null"
+                    android:text="@string/access_register" />
+            </LinearLayout>
+            <TextView
+                android:id="@+id/tvTerms"
+                style="@style/access_text_caption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/access_terms" />
+        </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

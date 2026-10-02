@@ -16,12 +16,13 @@ enum class ReservationResult(val message: String) {
     UNKNOWN_ID("Esta reserva ya no está disponible. Vuelve a Mis clases."),
 }
 
-/** Reservas de ejemplo en memoria; no sobreviven al cierre del proceso. */
 object ReservationStore {
     private val bookedClasses = mutableListOf<BookedClass>()
 
     fun add(bookedClass: BookedClass): ReservationResult {
-        if (bookedClass.id.isBlank() || !isValid(bookedClass)) return ReservationResult.INVALID
+        if (bookedClass.id.isBlank() || !isValid(bookedClass)) {
+            return ReservationResult.INVALID
+        }
         if (getById(bookedClass.id) != null || isDuplicate(bookedClass)) {
             return ReservationResult.DUPLICATE
         }
@@ -35,17 +36,24 @@ object ReservationStore {
 
     fun update(id: String, replacement: BookedClass): ReservationResult {
         val index = bookedClasses.indexOfFirst { it.id == id }
-        if (index == -1) return ReservationResult.UNKNOWN_ID
-        if (!isValid(replacement)) return ReservationResult.INVALID
-        if (isDuplicate(replacement, id)) return ReservationResult.DUPLICATE
-        // Mantener identidad y posición, incluso cuando se guarda sin cambios.
+        if (index == -1) {
+            return ReservationResult.UNKNOWN_ID
+        }
+        if (!isValid(replacement)) {
+            return ReservationResult.INVALID
+        }
+        if (isDuplicate(replacement, id)) {
+            return ReservationResult.DUPLICATE
+        }
         bookedClasses[index] = replacement.copy(id = id)
         return ReservationResult.SUCCESS
     }
 
     fun delete(id: String): ReservationResult {
         val index = bookedClasses.indexOfFirst { it.id == id }
-        if (index == -1) return ReservationResult.UNKNOWN_ID
+        if (index == -1) {
+            return ReservationResult.UNKNOWN_ID
+        }
         bookedClasses.removeAt(index)
         return ReservationResult.SUCCESS
     }
@@ -55,7 +63,9 @@ object ReservationStore {
 
     private fun isDuplicate(booking: BookedClass, excludedId: String? = null): Boolean =
         bookedClasses.any {
-            it.id != excludedId && it.className == booking.className &&
-                it.day == booking.day && it.time == booking.time
+            it.id != excludedId &&
+                it.className == booking.className &&
+                it.day == booking.day &&
+                it.time == booking.time
         }
 }

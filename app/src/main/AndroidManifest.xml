@@ -12,7 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
 
-        <!-- Pantalla de Selección de Perfil / Bienvenida -->
         <activity
             android:name="com.example.clubdeportivo.ui.inicio.MainActivity"
             android:exported="true"
@@ -24,13 +23,11 @@
             </intent-filter>
         </activity>
 
-        <!-- Pantalla de Login -->
         <activity
             android:name="com.example.clubdeportivo.ui.acceso.LoginActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 
-        <!-- Pantalla Principal del Socio -->
         <activity
             android:name="com.example.clubdeportivo.ui.socio.HomeSocioActivity"
             android:exported="false"
@@ -40,7 +37,6 @@
             android:name="com.example.clubdeportivo.ui.socio.CredencialActivity"
             android:exported="false" />
 
-        <!-- Pantalla de Clases Reservadas -->
         <activity
             android:name="com.example.clubdeportivo.ui.socio.MisClasesActivity"
             android:exported="false" />
@@ -88,7 +84,6 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 
-        <!-- Pantalla Principal del Profesor / Staff -->
         <activity
             android:name="com.example.clubdeportivo.ui.profesor.HomeProfesorActivity"
             android:exported="false"

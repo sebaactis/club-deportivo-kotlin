@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="socio_home_greeting">Buenas tardes</string>
+    <string name="socio_home_avatar">Ver perfil del socio</string>
+    <string name="socio_home_demo_paid">● Cuota al día · DEMO</string>
+    <string name="socio_home_demo_member">Ejemplo: vence el 10/09 · Socio N° 1042\nDNI %1$s · Sin verificación real</string>
+    <string name="socio_home_no_quota">Cuota sin datos · DEMO</string>
+    <string name="socio_home_unassigned_member">Número no asignado\nDNI %1$s · Sin verificación real</string>
+    <string name="socio_home_credential">Ver credencial</string>
+    <string name="socio_home_quick_access">ACCESOS RÁPIDOS</string>
+    <string name="socio_home_book">Reservar clase</string>
+    <string name="socio_home_book_help">Clases y horarios</string>
+    <string name="socio_home_my_classes">Mis clases</string>
+    <string name="socio_home_one_booking">1 reservada</string>
+    <string name="socio_home_booking_count">%1$d reservadas</string>
+    <string name="socio_home_routine">Mi rutina</string>
+    <string name="socio_home_routine_help">Rutina de ejemplo</string>
+    <string name="socio_home_nutrition">Nutrición</string>
+    <string name="socio_home_nutrition_help">Consulta de ejemplo</string>
+    <string name="socio_home_saved_class">TU CLASE RESERVADA</string>
+    <string name="socio_home_empty">Sin reservas</string>
+    <string name="socio_home_empty_help">Elige una clase en Reservar clase.</string>
+    <string name="socio_home_open_classes">Ver Mis clases ›</string>
+    <string name="socio_home_first_saved">Primera guardada · Demo · Ver Mis clases ›</string>
+    <string name="socio_home_booking_time">%1$s · %2$s</string>
+    <string name="socio_home_home">Inicio</string>
+    <string name="socio_home_classes">Clases</string>
+    <string name="socio_home_card">Credencial</string>
+    <string name="socio_home_profile">Perfil</string>
+    <string name="socio_home_profile_details">%1$s\nDNI: %2$s\nTipo: Socio\n\nDemostración: identidad y cuota sin verificar. Sin validez de acceso real.</string>
+    <string name="socio_home_close">Cerrar</string>
+    <string name="socio_home_credential_name">Nombre</string>
+    <string name="socio_home_credential_number">Número de socio</string>
+    <string name="socio_home_credential_quota">Estado de cuota</string>
+    <string name="socio_home_credential_dni">DNI: %1$s</string>
+    <string name="socio_home_credential_demo_number">1042 · Ejemplo demo</string>
+    <string name="socio_home_credential_demo_quota">Cuota al día · DEMO\nVence el 10/09 · Ejemplo sin verificar</string>
+    <string name="socio_home_credential_no_number">Número no asignado</string>
+</resources>

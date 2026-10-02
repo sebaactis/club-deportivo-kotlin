@@ -1,352 +1,286 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/socioHomeRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#071326"
-    android:fillViewport="true">
+    android:background="@color/access_navy"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <ScrollView
+        android:id="@+id/socioHomeScroll"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="20dp">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true"
+        android:clipToPadding="false">
 
-        <!-- HEADER: Saludo e Iniciales MG -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Buenas tardes"
-                    android:textColor="#94A3B8"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/tvUserName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Martín Gómez"
-                    android:textColor="#FFFFFF"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/tvAvatar"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:background="@drawable/bg_card"
-                android:gravity="center"
-                android:text="MG"
-                android:textColor="#FFFFFF"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <!-- TARJETA: Estado de la Cuota -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/bg_card"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:paddingStart="24dp"
+            android:paddingTop="32dp"
+            android:paddingEnd="24dp"
+            android:paddingBottom="28dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="●  Cuota al día"
-                android:textColor="#10B981"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:text="Vence el 10/09 · Socio N° 1042"
-                android:textColor="#94A3B8"
-                android:textSize="13sp" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnVerCredencial"
-                android:layout_width="wrap_content"
-                android:layout_height="38dp"
-                android:layout_marginTop="14dp"
-                android:background="@drawable/bg_badge_yellow"
-                android:paddingHorizontal="20dp"
-                android:text="Ver credencial"
-                android:textAllCaps="false"
-                android:textColor="#071326"
-                android:textSize="13sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <!-- SECCIÓN ACCESOS RÁPIDOS -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="ACCESOS RÁPIDOS"
-            android:textColor="#94A3B8"
-            android:textSize="12sp"
-            android:textStyle="bold" />
-
-        <!-- Fila 1 de botones -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:orientation="horizontal">
-
-            <!-- Reservar clase -->
             <LinearLayout
-                android:id="@+id/btnReservarClase"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="6dp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_card"
-                android:clickable="true"
-                android:focusable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="12dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/access_text_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/socio_home_greeting" />
+
+                    <TextView
+                        android:id="@+id/tvUserName"
+                        style="@style/socio_home_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvAvatar"
+                    style="@style/access_text_card_title"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/socio_home_avatar"
+                    android:foreground="?attr/selectableItemBackgroundBorderless"
+                    android:gravity="center"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:contentDescription="@string/socio_home_avatar"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:background="@drawable/socio_home_card"
                 android:orientation="vertical"
                 android:padding="16dp">
 
                 <TextView
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:background="@drawable/bg_circle_yellow"
-                    android:gravity="center"
-                    android:text="+"
-                    android:textColor="#071326"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/tvCuota"
+                    style="@style/access_text_card_title"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:text="Reservar clase"
-                    android:textColor="#FFFFFF"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="Profesores y horarios"
-                    android:textColor="#94A3B8"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <!-- Mis clases -->
-            <LinearLayout
-                android:id="@+id/btnMisClases"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_card"
-                android:clickable="true"
-                android:focusable="true"
-                android:orientation="vertical"
-                android:padding="16dp">
-
-                <TextView
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:background="@drawable/bg_circle_blue"
-                    android:gravity="center"
-                    android:text="≡"
-                    android:textColor="#FFFFFF"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:text="Mis clases"
-                    android:textColor="#FFFFFF"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tvMisClasesCount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="0 reservadas"
-                    android:textColor="#94A3B8"
-                    android:textSize="12sp" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <!-- Fila 2 de botones -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:orientation="horizontal">
-
-            <!-- Mi rutina -->
-            <LinearLayout
-                android:id="@+id/btnMiRutina"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="6dp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_card"
-                android:clickable="true"
-                android:focusable="true"
-                android:orientation="vertical"
-                android:padding="16dp">
-
-                <TextView
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:background="@drawable/bg_circle_blue"
-                    android:gravity="center"
-                    android:text="R"
-                    android:textColor="#FFFFFF"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:text="Mi rutina"
-                    android:textColor="#FFFFFF"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="Actualizada 20/08"
-                    android:textColor="#94A3B8"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <!-- Nutrición -->
-            <LinearLayout
-                android:id="@+id/btnNutricion"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_card"
-                android:clickable="true"
-                android:focusable="true"
-                android:orientation="vertical"
-                android:padding="16dp">
-
-                <TextView
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:background="@drawable/bg_circle_yellow"
-                    android:gravity="center"
-                    android:text="N"
-                    android:textColor="#071326"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:text="Nutrición"
-                    android:textColor="#FFFFFF"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="Turnos disponibles"
-                    android:textColor="#94A3B8"
-                    android:textSize="12sp" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <!-- SECCIÓN PRIMERA RESERVA GUARDADA -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="PRIMERA RESERVA GUARDADA"
-            android:textColor="#94A3B8"
-            android:textSize="12sp"
-            android:textStyle="bold" />
-
-        <!-- Tarjeta azul con borde para la clase -->
-        <LinearLayout
-            android:id="@+id/btnProximaClase"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/bg_card"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="16dp">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tvReservaNombre"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Sin reservas"
-                    android:textColor="#FFFFFF"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tvReservaHorario"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="Reserva una clase desde el acceso rápido."
-                    android:textColor="#94A3B8"
+                    android:textColor="@color/access_success"
                     android:textSize="14sp" />
 
                 <TextView
-                    android:id="@+id/tvReservaDetalle"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/tvSocioDetalle"
+                    style="@style/access_text_caption"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="Toca para ver Mis clases."
-                    android:textColor="#64748B"
+                    android:layout_marginTop="4dp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnVerCredencial"
+                    style="@style/access_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:minHeight="48dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/socio_home_credential"
                     android:textSize="13sp" />
             </LinearLayout>
 
             <TextView
+                style="@style/socio_home_heading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="›"
-                android:textColor="#94A3B8"
-                android:textSize="22sp" />
-        </LinearLayout>
+                android:text="@string/socio_home_quick_access" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/btnReservarClase"
+                    style="@style/socio_home_card"
+                    android:layout_marginEnd="6dp">
+
+                    <TextView
+                        style="@style/socio_home_icon"
+                        android:text="+" />
+
+                    <TextView
+                        style="@style/socio_home_quick_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/socio_home_book" />
+
+                    <TextView
+                        style="@style/socio_home_quick_caption"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/socio_home_book_help" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btnMisClases"
+                    style="@style/socio_home_card"
+                    android:layout_marginStart="6dp">
+
+                    <TextView
+                        style="@style/socio_home_icon_blue"
+                        android:text="≡" />
+
+                    <TextView
+                        style="@style/socio_home_quick_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/socio_home_my_classes" />
+
+                    <TextView
+                        android:id="@+id/tvMisClasesCount"
+                        style="@style/socio_home_quick_caption"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/btnMiRutina"
+                    style="@style/socio_home_card"
+                    android:layout_marginEnd="6dp">
+
+                    <TextView
+                        style="@style/socio_home_icon_blue"
+                        android:text="R" />
+
+                    <TextView
+                        style="@style/socio_home_quick_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/socio_home_routine" />
+
+                    <TextView
+                        style="@style/socio_home_quick_caption"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/socio_home_routine_help" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btnNutricion"
+                    style="@style/socio_home_card"
+                    android:layout_marginStart="6dp">
+
+                    <TextView
+                        style="@style/socio_home_icon"
+                        android:text="N" />
+
+                    <TextView
+                        style="@style/socio_home_quick_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/socio_home_nutrition" />
+
+                    <TextView
+                        style="@style/socio_home_quick_caption"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/socio_home_nutrition_help" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                style="@style/socio_home_heading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/socio_home_saved_class" />
+
+            <LinearLayout
+                android:id="@+id/btnProximaClase"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="92dp"
+                android:background="@drawable/socio_home_reservation"
+                android:foreground="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="vertical"
+                android:padding="18dp">
+
+                <TextView
+                    android:id="@+id/tvReservaNombre"
+                    style="@style/access_text_card_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/tvReservaHorario"
+                    style="@style/access_text_caption"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp" />
+
+                <TextView
+                    android:id="@+id/tvReservaDetalle"
+                    style="@style/access_text_caption"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textSize="11sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/access_border" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="18dp"
+        android:paddingEnd="18dp"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnInicio"
+            style="@style/socio_home_tab"
+            android:background="@drawable/socio_home_active_tab"
+            android:textColor="@color/access_member"
+            android:text="@string/socio_home_home" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnClases"
+            style="@style/socio_home_tab"
+            android:text="@string/socio_home_classes" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnCredencial"
+            style="@style/socio_home_tab"
+            android:text="@string/socio_home_card" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnPerfil"
+            style="@style/socio_home_tab"
+            android:text="@string/socio_home_profile" />
     </LinearLayout>
-</ScrollView>
+</LinearLayout>

@@ -1,7 +1,6 @@
 package com.example.clubdeportivo.ui.socio
 
-import com.example.clubdeportivo.R
-
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Paint
 import android.os.Bundle
@@ -13,8 +12,22 @@ import android.widget.LinearLayout
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import com.example.clubdeportivo.R
+import com.example.clubdeportivo.ui.acceso.DemoAccess
+import com.example.clubdeportivo.ui.inicio.MainActivity
 
 class MiRutinaActivity : AppCompatActivity() {
+    companion object {
+        const val EXTRA_CONSULTA_PROFESOR = "consulta_profesor"
+        const val EXTRA_ALUMNO_ID = "consulta_alumno_id"
+        const val EXTRA_ALUMNO_NOMBRE = "consulta_alumno_nombre"
+    }
+
+    private var consultaProfesor = false
 
     private val dias = listOf("Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado")
     private val ejerciciosCompletados = mutableSetOf<String>()
@@ -53,9 +66,32 @@ class MiRutinaActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        consultaProfesor = intent.getBooleanExtra(EXTRA_CONSULTA_PROFESOR, false)
+        if (consultaProfesor && !autorizarConsulta()) {
+            return
+        }
         setContentView(R.layout.activity_mi_rutina)
+        if (consultaProfesor) {
+            findViewById<TextView>(R.id.routineTitle).setText(R.string.staff_routine_title)
+            val nombre = intent.getStringExtra(EXTRA_ALUMNO_NOMBRE)
+                ?.takeIf { it.isNotBlank() } ?: getString(R.string.staff_unknown_student)
+            val id = intent.getStringExtra(EXTRA_ALUMNO_ID).orEmpty()
+            findViewById<TextView>(R.id.routineContext).text = getString(R.string.staff_routine_context, nombre, id)
+            WindowCompat.setDecorFitsSystemWindows(window, false)
+            val root = findViewById<View>(R.id.routineRoot)
+            ViewCompat.setOnApplyWindowInsetsListener(root) { view, insets ->
+                val bars = insets.getInsets(
+                    WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
+                )
+                view.setPadding(bars.left, bars.top, bars.right, bars.bottom)
+                insets
+            }
+            ViewCompat.requestApplyInsets(root)
+        }
 
-        findViewById<TextView>(R.id.backButton).setOnClickListener { finish() }
+        findViewById<TextView>(R.id.backButton).setOnClickListener {
+            finish()
+        }
 
         val selectorDia = findViewById<Spinner>(R.id.selectorDia)
         val adaptador = ArrayAdapter(this, android.R.layout.simple_spinner_item, dias)
@@ -68,6 +104,25 @@ class MiRutinaActivity : AppCompatActivity() {
 
             override fun onNothingSelected(parent: AdapterView<*>?) = Unit
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (consultaProfesor) {
+            autorizarConsulta()
+        }
+    }
+
+    private fun autorizarConsulta(): Boolean {
+        val profile = DemoAccess.currentProfile
+        if (profile == null || profile.role != DemoAccess.Role.PROFESOR) {
+            if (!isFinishing) {
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
+            }
+            return false
+        }
+        return true
     }
 
     private fun mostrarEjercicios(dia: String) {
@@ -89,11 +144,12 @@ class MiRutinaActivity : AppCompatActivity() {
         nombre.text = ejercicio.nombre
         nombre.textSize = 18f
         nombre.setTextColor(0xFFFFFFFF.toInt())
-        nombre.setTypeface(null, android.graphics.Typeface.BOLD)
+        nombre.typeface = ResourcesCompat.getFont(this, R.font.inter_bold)
         tarjeta.addView(nombre)
 
         val detalle = TextView(this)
         detalle.text = "${ejercicio.series} · ${ejercicio.repeticiones}"
+        detalle.typeface = ResourcesCompat.getFont(this, R.font.inter_regular)
         detalle.textSize = 14f
         detalle.setTextColor(0xFFFFD54F.toInt())
         val detalleParams = LinearLayout.LayoutParams(
@@ -105,6 +161,7 @@ class MiRutinaActivity : AppCompatActivity() {
 
         val notas = TextView(this)
         notas.text = ejercicio.notas
+        notas.typeface = ResourcesCompat.getFont(this, R.font.inter_regular)
         notas.textSize = 14f
         notas.setTextColor(0xFF94A3B8.toInt())
         val notasParams = LinearLayout.LayoutParams(
@@ -116,13 +173,22 @@ class MiRutinaActivity : AppCompatActivity() {
 
         val clave = "$dia-${ejercicio.nombre}"
         val realizado = CheckBox(this)
-        realizado.text = "Realizado"
+        realizado.text = if (consultaProfesor) {
+            getString(R.string.staff_routine_read_only)
+        } else {
+            "Realizado"
+        }
+        realizado.typeface = ResourcesCompat.getFont(this, R.font.inter_medium)
+        realizado.isEnabled = !consultaProfesor
         realizado.textSize = 14f
         realizado.setTextColor(0xFFFFFFFF.toInt())
         realizado.buttonTintList = ColorStateList.valueOf(0xFFFFD54F.toInt())
         realizado.isChecked = ejerciciosCompletados.contains(clave)
         actualizarAspectoTarjeta(tarjeta, nombre, realizado.isChecked)
         realizado.setOnCheckedChangeListener { _, marcado ->
+            if (consultaProfesor) {
+                return@setOnCheckedChangeListener
+            }
             if (marcado) {
                 ejerciciosCompletados.add(clave)
             } else {
@@ -141,7 +207,9 @@ class MiRutinaActivity : AppCompatActivity() {
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT,
-            ).apply { bottomMargin = 16 }
+            ).apply {
+                bottomMargin = 16
+            }
         }
     }
 

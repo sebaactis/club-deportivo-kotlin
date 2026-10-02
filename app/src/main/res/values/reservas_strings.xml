@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reservas_back">‹ Volver</string>
+    <string name="reservas_title">Reservar clase</string>
+    <string name="reservas_help">Elegí profesor y horario disponible</string>
+    <string name="reservas_continue">Continuar</string>
+    <string name="reservas_available">Demo local: todos los horarios están disponibles en cada día. Elegí un día y un horario.</string>
+    <string name="reservas_confirm_title">Confirmá tu reserva</string>
+    <string name="reservas_confirm_help">Revisá los datos antes de confirmar</string>
+    <string name="reservas_confirm">Confirmar reserva</string>
+    <string name="reservas_modify">Modificar horario</string>
+    <string name="reservas_edit_title">Modificar reserva</string>
+    <string name="reservas_review">Revisar cambios</string>
+    <string name="reservas_edit_confirm">Confirmar cambios</string>
+    <string name="reservas_save_changes">Guardar cambios</string>
+    <string name="reservas_class_room">%1$s · %2$s</string>
+    <string name="reservas_teacher">con %1$s · demo</string>
+    <string name="reservas_weekly">%1$s · %2$s</string>
+    <string name="reservas_day_time">Día y horario</string>
+    <string name="reservas_room">Lugar (demo)</string>
+    <string name="reservas_duration">Duración (demo)</string>
+    <string name="reservas_capacity">Cupo (ejemplo)</string>
+    <string name="reservas_minutes">%1$d minutos</string>
+    <string name="reservas_demo_note">Profesores, salones, duración y cupo son ejemplos ficticios. Reserva semanal en memoria, sin fecha real ni disponibilidad verificada. No se aplica un plazo de cancelación.</string>
+    <string name="reservas_member">Socio: %1$s</string>
+    <string name="reservas_quota_example">Cuota al día · EJEMPLO no verificado\nVence el 10/09 · EJEMPLO sin año real</string>
+    <string name="reservas_quota_unknown">Cuota y vencimiento: sin datos verificados. No impide reservar en esta demo.</string>
+</resources>

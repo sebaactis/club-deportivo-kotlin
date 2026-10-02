@@ -1,9 +1,5 @@
 package com.example.clubdeportivo.ui.profesor
 
-import com.example.clubdeportivo.R
-
-import com.example.clubdeportivo.data.profesor.ProfesorStore
-
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
@@ -12,6 +8,8 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatCheckBox
+import com.example.clubdeportivo.R
+import com.example.clubdeportivo.data.profesor.ProfesorStore
 import kotlin.math.roundToInt
 
 class AsistenciaProfesorActivity : AppCompatActivity() {
@@ -58,13 +56,15 @@ class AsistenciaProfesorActivity : AppCompatActivity() {
         actualizarContador(clase)
 
         if (clase.socios.isEmpty()) {
-            lista.addView(TextView(this).apply {
-                text = "No hay socios inscriptos en esta clase de ejemplo."
-                textSize = 16f
-                setTextColor(Color.parseColor("#94A3B8"))
-                setPadding(dp(16), dp(16), dp(16), dp(16))
-                setBackgroundResource(R.drawable.bg_card)
-            })
+            lista.addView(
+                TextView(this).apply {
+                    text = "No hay socios inscriptos en esta clase de ejemplo."
+                    textSize = 16f
+                    setTextColor(Color.parseColor("#94A3B8"))
+                    setPadding(dp(16), dp(16), dp(16), dp(16))
+                    setBackgroundResource(R.drawable.bg_card)
+                }
+            )
 
             return
         }
@@ -87,7 +87,9 @@ class AsistenciaProfesorActivity : AppCompatActivity() {
                 layoutParams = LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
-                ).apply { bottomMargin = dp(8) }
+                ).apply {
+                    bottomMargin = dp(8)
+                }
             }
 
             casilla.setOnCheckedChangeListener { _, marcada ->

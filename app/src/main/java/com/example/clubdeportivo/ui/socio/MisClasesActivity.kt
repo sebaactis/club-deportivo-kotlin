@@ -1,12 +1,5 @@
 package com.example.clubdeportivo.ui.socio
 
-import com.example.clubdeportivo.R
-import com.example.clubdeportivo.ui.reservas.ReservationActivity
-
-import com.example.clubdeportivo.data.reservas.BookedClass
-import com.example.clubdeportivo.data.reservas.ReservationResult
-import com.example.clubdeportivo.data.reservas.ReservationStore
-
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -16,9 +9,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
+import com.example.clubdeportivo.R
+import com.example.clubdeportivo.data.reservas.BookedClass
+import com.example.clubdeportivo.data.reservas.ReservationResult
+import com.example.clubdeportivo.data.reservas.ReservationStore
+import com.example.clubdeportivo.ui.reservas.ReservationActivity
 
 class MisClasesActivity : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mis_clases)
@@ -33,12 +30,11 @@ class MisClasesActivity : AppCompatActivity() {
         }
     }
 
-    // Se llama cada vez que la pantalla aparece. Lo recargamos en onResume y no solo en
-    // onCreate para que, al volver desde "Reservar clase", se vea la reserva nueva.
     override fun onResume() {
         super.onResume()
         mostrarReservas()
     }
+
     private fun mostrarReservas() {
         val classList = findViewById<LinearLayout>(R.id.classList)
         val emptyState = findViewById<TextView>(R.id.emptyState)
@@ -62,13 +58,11 @@ class MisClasesActivity : AppCompatActivity() {
         classList.visibility = View.VISIBLE
         resumen.text = pluralReservas(reservas.size)
 
-        // Una tarjeta vertical por cada clase reservada.
         for (reserva in reservas) {
             classList.addView(crearTarjeta(reserva))
         }
     }
 
-    /** Construye la tarjeta de una clase con acciones sobre su identidad estable. */
     private fun crearTarjeta(reserva: BookedClass): View {
         val tarjeta = LinearLayout(this)
         tarjeta.orientation = LinearLayout.VERTICAL
@@ -88,23 +82,35 @@ class MisClasesActivity : AppCompatActivity() {
         diaYHora.setTextColor(0xFF94A3B8.toInt())
         tarjeta.addView(diaYHora)
 
-        val acciones = LinearLayout(this).apply { orientation = LinearLayout.HORIZONTAL }
-        acciones.addView(botonAccion("Modificar") {
-            startActivity(Intent(this, ReservationActivity::class.java).apply {
-                putExtra(ReservationActivity.EXTRA_ID, reserva.id)
-            })
-        })
-        acciones.addView(botonAccion("Cancelar") { confirmarCancelacion(reserva) })
+        val acciones = LinearLayout(this).apply {
+            orientation = LinearLayout.HORIZONTAL
+        }
+        acciones.addView(
+            botonAccion("Modificar") {
+                startActivity(
+                    Intent(this, ReservationActivity::class.java).apply {
+                        putExtra(ReservationActivity.EXTRA_ID, reserva.id)
+                    }
+                )
+            }
+        )
+        acciones.addView(
+            botonAccion("Cancelar") {
+                confirmarCancelacion(reserva)
+            }
+        )
         tarjeta.addView(acciones)
 
-        // LayoutParams норма: ocupa todo el ancho de la pantalla.
         return tarjeta.apply {
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT,
-            ).apply { bottomMargin = dp(14) }
+            ).apply {
+                bottomMargin = dp(14)
+            }
         }
     }
+
     private fun dp(value: Int): Int = (value * resources.displayMetrics.density).toInt()
 
     private fun botonAccion(label: String, accion: () -> Unit): AppCompatButton =
@@ -120,7 +126,9 @@ class MisClasesActivity : AppCompatActivity() {
             layoutParams = LinearLayout.LayoutParams(0, dp(48), 1f).apply {
                 setMargins(dp(4), dp(12), dp(4), 0)
             }
-            setOnClickListener { accion() }
+            setOnClickListener {
+                accion()
+            }
         }
 
     private fun confirmarCancelacion(reserva: BookedClass) {
@@ -130,7 +138,11 @@ class MisClasesActivity : AppCompatActivity() {
             .setNegativeButton("Conservar", null)
             .setPositiveButton("Cancelar reserva") { _, _ ->
                 val result = ReservationStore.delete(reserva.id)
-                val mensaje = if (result == ReservationResult.SUCCESS) "Reserva cancelada." else result.message
+                val mensaje = if (result == ReservationResult.SUCCESS) {
+                    "Reserva cancelada."
+                } else {
+                    result.message
+                }
                 Toast.makeText(this, mensaje, Toast.LENGTH_LONG).show()
                 mostrarReservas()
             }

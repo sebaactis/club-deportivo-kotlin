@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/socioCredentialRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#071326"
+    android:background="@color/access_navy"
     android:fillViewport="true">
 
     <LinearLayout
@@ -12,12 +13,11 @@
         android:padding="20dp">
 
         <TextView
+            style="@style/socio_home_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Credencial del socio"
-            android:textColor="#FFFFFF"
-            android:textSize="26sp"
-            android:textStyle="bold" />
+            android:textSize="26sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -28,19 +28,20 @@
             android:padding="16dp">
 
             <TextView
+                style="@style/access_text_card_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="SOLO DEMOSTRACIÓN"
-                android:textColor="#FFD54F"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textColor="@color/access_member"
+                android:textSize="18sp" />
 
             <TextView
+                style="@style/access_text_body"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="Estos datos son de ejemplo. La identidad y el estado de cuota no están verificados. Esta credencial no es válida para acceder al club."
-                android:textColor="#FFFFFF"
+                android:textColor="@color/access_text_primary"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -53,68 +54,65 @@
             android:padding="20dp">
 
             <TextView
+                style="@style/access_text_body"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nombre de ejemplo"
-                android:textColor="#94A3B8"
-                android:textSize="14sp" />
+                android:text="@string/socio_home_credential_name" />
 
             <TextView
+                android:id="@+id/tvCredencialNombre"
+                style="@style/socio_home_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:text="Martín Gómez"
-                android:textColor="#FFFFFF"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+                android:layout_marginTop="6dp" />
 
             <TextView
+                android:id="@+id/tvCredencialDni"
+                style="@style/access_text_body"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp" />
+
+            <TextView
+                style="@style/access_text_body"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Número de socio de ejemplo"
-                android:textColor="#94A3B8"
-                android:textSize="14sp" />
+                android:text="@string/socio_home_credential_number" />
 
             <TextView
+                android:id="@+id/tvCredencialNumero"
+                style="@style/access_text_card_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:text="1042"
-                android:textColor="#FFFFFF"
-                android:textSize="22sp"
-                android:textStyle="bold" />
+                android:textSize="22sp" />
 
             <TextView
+                style="@style/access_text_body"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Estado de cuota de ejemplo"
-                android:textColor="#94A3B8"
-                android:textSize="14sp" />
+                android:text="@string/socio_home_credential_quota" />
 
             <TextView
+                android:id="@+id/tvCredencialCuota"
+                style="@style/access_text_card_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:text="Cuota al día"
-                android:textColor="#FFD54F"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textColor="@color/access_member"
+                android:textSize="20sp" />
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnVolverCredencial"
+            style="@style/access_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:minHeight="48dp"
-            android:background="@drawable/bg_badge_yellow"
             android:padding="12dp"
-            android:text="Volver"
-            android:textAllCaps="false"
-            android:textColor="#071326"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:text="Volver" />
     </LinearLayout>
 </ScrollView>

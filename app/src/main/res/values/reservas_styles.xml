@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="reservas_body" parent="access_text_body">
+        <item name="android:textColor">#93A9C8</item>
+    </style>
+    <style name="reservas_title" parent="access_text_card_title">
+        <item name="android:fontFamily">@font/inter_bold</item>
+        <item name="fontFamily">@font/inter_bold</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:textColor">#F2F6FC</item>
+    </style>
+    <style name="reservas_caption" parent="reservas_body">
+        <item name="android:textSize">12sp</item>
+    </style>
+    <style name="reservas_primary" parent="access_button">
+        <item name="android:background">@drawable/access_button_member</item>
+        <item name="android:textColor">#071A33</item>
+    </style>
+    <style name="reservas_secondary" parent="access_button_secondary">
+        <item name="android:background">@drawable/reservas_choice</item>
+        <item name="android:textColor">#F2F6FC</item>
+    </style>
+</resources>

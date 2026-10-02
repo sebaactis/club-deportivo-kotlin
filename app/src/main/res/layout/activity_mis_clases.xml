@@ -11,7 +11,6 @@
         android:orientation="vertical"
         android:padding="20dp">
 
-        <!-- CONTROL PARA VOLVER AL INICIO -->
         <TextView
             android:id="@+id/backButton"
             android:layout_width="wrap_content"
@@ -38,7 +37,6 @@
             android:textColor="#94A3B8"
             android:textSize="14sp" />
 
-        <!-- Mensaje que se ve cuando todavía no hay ninguna clase reservada -->
         <TextView
             android:id="@+id/emptyState"
             android:layout_width="match_parent"
@@ -65,7 +63,6 @@
             android:textStyle="bold"
             android:visibility="gone" />
 
-        <!-- Contenedor vacío: las tarjetas de cada clase se agregan desde el código -->
         <LinearLayout
             android:id="@+id/classList"
             android:layout_width="match_parent"

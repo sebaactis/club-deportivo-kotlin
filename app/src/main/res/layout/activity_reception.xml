@@ -131,6 +131,16 @@
             android:textColor="#FFFFFF" />
 
         <TextView
+            android:id="@+id/tvVenceHoyReception"
+            style="@style/StaffSecondary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:visibility="gone"
+            android:accessibilityLiveRegion="polite"
+            android:textColor="@color/access_member" />
+
+        <TextView
             android:id="@+id/tvResultadoReception"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

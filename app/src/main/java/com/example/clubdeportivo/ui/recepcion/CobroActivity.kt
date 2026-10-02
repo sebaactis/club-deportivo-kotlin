@@ -1,9 +1,5 @@
 package com.example.clubdeportivo.ui.recepcion
 
-import com.example.clubdeportivo.R
-
-import com.example.clubdeportivo.data.personas.PersonaStore
-
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -13,13 +9,14 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatEditText
+import com.example.clubdeportivo.R
+import com.example.clubdeportivo.data.personas.PersonaStore
 import java.math.BigDecimal
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import java.util.UUID
 
-/** Configuración y cobro demo: solo la confirmación visible modifica la vigencia. */
 class CobroActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_PERSONA_ID = "com.example.clubdeportivo.COBRO_PERSONA_ID"
@@ -59,8 +56,10 @@ class CobroActivity : AppCompatActivity() {
             val finalizadoGuardado = savedInstanceState?.getBoolean("terminado") == true &&
                 reciboGuardado != null && reciboGuardado.personaId == personaId
 
-            if (personaId.isNullOrBlank() ||
-                (PersonaStore.getById(personaId!!) == null && !finalizadoGuardado)) {
+            if (
+                personaId.isNullOrBlank() ||
+                (PersonaStore.getById(personaId!!) == null && !finalizadoGuardado)
+            ) {
                 rechazarPersona()
                 return
             }
@@ -81,16 +80,24 @@ class CobroActivity : AppCompatActivity() {
 
         findViewById<TextView>(R.id.tvTituloCobro).text =
             if (personaId == null) "Configurar tarifas" else "Cobro simulado"
-        findViewById<AppCompatButton>(R.id.btnVolverCobro).setOnClickListener { finish() }
-        findViewById<AppCompatButton>(R.id.btnGuardarTarifas).setOnClickListener { guardarTarifas() }
+        findViewById<AppCompatButton>(R.id.btnVolverCobro).setOnClickListener {
+            finish()
+        }
+        findViewById<AppCompatButton>(R.id.btnGuardarTarifas).setOnClickListener {
+            guardarTarifas()
+        }
 
-        cobrar.setOnClickListener { mostrarConfirmacion() }
+        cobrar.setOnClickListener {
+            mostrarConfirmacion()
+        }
 
         findViewById<AppCompatButton>(R.id.btnVerComprobanteCobro).setOnClickListener {
             val recibo = comprobanteFinalizado() ?: return@setOnClickListener
-            startActivity(Intent(this, HistorialPagosActivity::class.java)
-                .putExtra(HistorialPagosActivity.EXTRA_PERSONA_ID, recibo.personaId)
-                .putExtra(HistorialPagosActivity.EXTRA_COMPROBANTE_ID, recibo.id))
+            startActivity(
+                Intent(this, HistorialPagosActivity::class.java)
+                    .putExtra(HistorialPagosActivity.EXTRA_PERSONA_ID, recibo.personaId)
+                    .putExtra(HistorialPagosActivity.EXTRA_COMPROBANTE_ID, recibo.id)
+            )
         }
 
         if (savedInstanceState != null) {
@@ -107,12 +114,16 @@ class CobroActivity : AppCompatActivity() {
                 diaria.setText(decimal(it.diariaCentavos))
             }
         }
-        if (terminado) setResult(RESULT_OK)
+        if (terminado) {
+            setResult(RESULT_OK)
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        if (!isFinishing) refrescar()
+        if (!isFinishing) {
+            refrescar()
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -136,10 +147,13 @@ class CobroActivity : AppCompatActivity() {
     }
 
     private fun guardarTarifas() {
-        if (confirmando || terminado || isFinishing) return
+        if (confirmando || terminado || isFinishing) {
+            return
+        }
         val importeMensual = PersonaStore.parsearCentavos(mensual.text.toString())
         val importeDiario = PersonaStore.parsearCentavos(diaria.text.toString())
-        val error = "Importe inválido: debe ser positivo, sin separadores de miles, con hasta 2 decimales y dentro del rango admitido."
+        val error =
+            "Importe inválido: debe ser positivo, sin separadores de miles, con hasta 2 decimales y dentro del rango admitido."
 
         mensual.error = if (importeMensual == null) error else null
         diaria.error = if (importeDiario == null) error else null
@@ -154,6 +168,7 @@ class CobroActivity : AppCompatActivity() {
                 mensaje.text = "Ambas tarifas guardadas. Solo afectan cobros futuros."
                 refrescar()
             }
+
             is PersonaStore.ResultadoCobro.Fallo -> mensaje.text = explicar(resultado.error)
             else -> mensaje.text = "No se pudieron guardar las tarifas."
         }
@@ -199,19 +214,24 @@ class CobroActivity : AppCompatActivity() {
         identidad.text = "${persona.nombre} ${persona.apellido}\nDNI: ${persona.dni} · ${persona.tipo.etiqueta}\n" +
             "Estado: ${persona.estado().etiqueta}\nVencimiento actual: ${fecha(persona.vencimientoNullable)}"
 
-        val concepto = if (persona.tipo == PersonaStore.Tipo.SOCIO)
-            PersonaStore.Concepto.CUOTA_MENSUAL else PersonaStore.Concepto.PASE_DIARIO
+        val concepto = if (persona.tipo == PersonaStore.Tipo.SOCIO) {
+            PersonaStore.Concepto.CUOTA_MENSUAL
+        } else {
+            PersonaStore.Concepto.PASE_DIARIO
+        }
         when (val resultado = PersonaStore.previsualizarCobro(id, concepto, operacionId)) {
             is PersonaStore.ResultadoCobro.Resumen -> {
                 resumen = resultado.resumen
                 vistaResumen.text = describir(resultado.resumen)
                 cobrar.isEnabled = !confirmando
             }
+
             is PersonaStore.ResultadoCobro.Fallo -> {
                 resumen = null
                 vistaResumen.text = explicar(resultado.error)
                 cobrar.isEnabled = false
             }
+
             else -> {
                 resumen = null
                 vistaResumen.text = "No se pudo preparar el cobro."
@@ -221,7 +241,9 @@ class CobroActivity : AppCompatActivity() {
     }
 
     private fun mostrarConfirmacion() {
-        if (confirmando || terminado || isFinishing || personaId == null) return
+        if (confirmando || terminado || isFinishing || personaId == null) {
+            return
+        }
         refrescar()
 
         val pendiente = resumen ?: return
@@ -230,31 +252,41 @@ class CobroActivity : AppCompatActivity() {
 
         dialogo = AlertDialog.Builder(this)
             .setTitle("Confirmar cobro simulado")
-            .setMessage("${pendiente.persona.nombre} ${pendiente.persona.apellido} · DNI ${pendiente.persona.dni}\n\n" +
-                describir(pendiente) + "\n\nDemo: no se mueve dinero real. No es un comprobante fiscal ni una credencial de acceso.")
+            .setMessage(
+                "${pendiente.persona.nombre} ${pendiente.persona.apellido} · DNI ${pendiente.persona.dni}\n\n" +
+                    describir(pendiente) +
+                    "\n\nDemo: no se mueve dinero real. No es un comprobante fiscal ni una credencial de acceso."
+            )
             .setNegativeButton("Cancelar", null)
-            .setPositiveButton("Confirmar cobro simulado") { _, _ -> confirmar(pendiente) }
+            .setPositiveButton("Confirmar cobro simulado") { _, _ ->
+                confirmar(pendiente)
+            }
             .create().also { ventana ->
                 ventana.setOnDismissListener {
                     confirmando = false
                     dialogo = null
-                    if (!isFinishing && !isDestroyed) refrescar()
+                    if (!isFinishing && !isDestroyed) {
+                        refrescar()
+                    }
                 }
                 ventana.show()
             }
     }
 
     private fun confirmar(pendiente: PersonaStore.ResumenCobro) {
-        if (terminado || !confirmando || isFinishing) return
+        if (terminado || !confirmando || isFinishing) {
+            return
+        }
 
         when (val resultado = PersonaStore.confirmarCobro(pendiente)) {
             is PersonaStore.ResultadoCobro.Confirmado -> {
                 val recibo = resultado.comprobante
                 terminado = true
                 comprobanteId = recibo.id
-                textoComprobante = "Cobro simulado registrado\n${recibo.concepto.etiqueta} · ${dinero(recibo.importeCentavos)}\n" +
-                    "Comprobante demo: ${recibo.id}\nNuevo vencimiento: ${fecha(recibo.nuevoVencimiento)}\n" +
-                    "Sin validez fiscal ni como credencial."
+                textoComprobante =
+                    "Cobro simulado registrado\n${recibo.concepto.etiqueta} · ${dinero(recibo.importeCentavos)}\n" +
+                        "Comprobante demo: ${recibo.id}\nNuevo vencimiento: ${fecha(recibo.nuevoVencimiento)}\n" +
+                        "Sin validez fiscal ni como credencial."
                 mensaje.text = "Operación finalizada. No se volverá a cobrar desde esta pantalla."
                 setResult(RESULT_OK)
             }
@@ -268,6 +300,7 @@ class CobroActivity : AppCompatActivity() {
                     operacionId = UUID.randomUUID().toString()
                 }
             }
+
             else -> mensaje.text = "No se pudo confirmar el cobro. No se registró una operación."
         }
     }
@@ -277,20 +310,31 @@ class CobroActivity : AppCompatActivity() {
             "Importe total: ${dinero(valor.importeCentavos)}\n" +
             "Vencimiento anterior: ${fecha(valor.persona.vencimientoNullable)}\n" +
             "Base de cálculo: ${fecha(valor.baseVencimiento)}\nNuevo vencimiento: ${fecha(valor.nuevoVencimiento)}\n" +
-            if (valor.esRenovacion) "Renovación anticipada: la vigencia está activa (incluye hoy). Se extiende desde su vencimiento, no desde hoy."
-            else "Se calcula desde el día local de hoy."
+            if (valor.esRenovacion) {
+                "Renovación anticipada: la vigencia está activa (incluye hoy). Se extiende desde su vencimiento, no desde hoy."
+            } else {
+                "Se calcula desde el día local de hoy."
+            }
 
     private fun explicar(error: PersonaStore.ErrorCobro): String = when (error) {
-        PersonaStore.ErrorCobro.IMPORTE_INVALIDO -> "Importe inválido: usa un valor positivo sin miles y con hasta 2 decimales."
+        PersonaStore.ErrorCobro.IMPORTE_INVALIDO ->
+            "Importe inválido: usa un valor positivo sin miles y con hasta 2 decimales."
         PersonaStore.ErrorCobro.PERSONA_NO_ENCONTRADA -> "La persona ya no existe. No se realizó el cobro."
         PersonaStore.ErrorCobro.TARIFAS_SIN_CONFIGURAR -> "Cobro bloqueado: configura y guarda ambas tarifas."
-        PersonaStore.ErrorCobro.TIPO_INVALIDO -> "Cambió el tipo de persona. No se cobró; revisa el nuevo concepto y confirma otra vez."
-        PersonaStore.ErrorCobro.RESUMEN_OBSOLETO -> "Los datos, tarifas o fechas cambiaron. No se cobró; revisa el nuevo resumen y confirma otra vez."
-        PersonaStore.ErrorCobro.OPERACION_INVALIDA -> "Identificador de operación inválido o ya utilizado. No se realizó un nuevo cobro."
+        PersonaStore.ErrorCobro.TIPO_INVALIDO ->
+            "Cambió el tipo de persona. No se cobró; revisa el nuevo concepto y confirma otra vez."
+        PersonaStore.ErrorCobro.RESUMEN_OBSOLETO ->
+            "Los datos, tarifas o fechas cambiaron. No se cobró; revisa el nuevo resumen y confirma otra vez."
+        PersonaStore.ErrorCobro.OPERACION_INVALIDA ->
+            "Identificador de operación inválido o ya utilizado. No se realizó un nuevo cobro."
     }
 
     private fun rechazarPersona() {
-        Toast.makeText(this, "No se puede cobrar: identificador inválido o persona inexistente.", Toast.LENGTH_LONG).show()
+        Toast.makeText(
+            this,
+            "No se puede cobrar: identificador inválido o persona inexistente.",
+            Toast.LENGTH_LONG
+        ).show()
         setResult(RESULT_CANCELED)
         finish()
     }
@@ -301,7 +345,9 @@ class CobroActivity : AppCompatActivity() {
             ?.takeIf { it.personaId == personaId }
 
     private fun decimal(centavos: Long): String = BigDecimal.valueOf(centavos, 2).toPlainString()
+
     private fun dinero(centavos: Long): String = "ARS ${decimal(centavos).replace('.', ',')}"
+
     private fun fecha(valor: Long?): String = valor?.let {
         SimpleDateFormat("dd/MM/yyyy", Locale.forLanguageTag("es-AR")).format(Date(it))
     } ?: "Sin fecha"

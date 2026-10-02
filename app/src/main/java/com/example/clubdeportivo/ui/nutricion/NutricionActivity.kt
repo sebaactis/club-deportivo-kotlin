@@ -1,10 +1,5 @@
 package com.example.clubdeportivo.ui.nutricion
 
-import com.example.clubdeportivo.R
-
-import com.example.clubdeportivo.data.nutricion.NutricionStore
-import com.example.clubdeportivo.data.nutricion.TurnoNutricion
-
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
@@ -16,6 +11,9 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
+import com.example.clubdeportivo.R
+import com.example.clubdeportivo.data.nutricion.NutricionStore
+import com.example.clubdeportivo.data.nutricion.TurnoNutricion
 
 class NutricionActivity : AppCompatActivity() {
     private lateinit var selectorDia: Spinner
@@ -36,14 +34,17 @@ class NutricionActivity : AppCompatActivity() {
 
         prepararSelector(selectorDia, listOf("Elige un día") + NutricionStore.dias)
         prepararSelector(selectorHora, listOf("Elige un horario") + NutricionStore.horarios)
-        findViewById<TextView>(R.id.backButton).setOnClickListener { finish() }
-        guardar.setOnClickListener { guardarTurno() }
+        findViewById<TextView>(R.id.backButton).setOnClickListener {
+            finish()
+        }
+        guardar.setOnClickListener {
+            guardarTurno()
+        }
         salirEdicion.setOnClickListener {
             limpiarFormulario()
             informar("Edición descartada. El turno no se modificó.")
         }
 
-        // Conservamos el modo edición al recrear la pantalla; Android restaura los selectores.
         if (savedInstanceState?.containsKey("idEnEdicion") == true) {
             idEnEdicion = savedInstanceState.getInt("idEnEdicion")
             mostrarModoEdicion()
@@ -67,7 +68,9 @@ class NutricionActivity : AppCompatActivity() {
 
     private fun prepararSelector(selector: Spinner, opciones: List<String>) {
         selector.adapter = object : ArrayAdapter<String>(
-            this, android.R.layout.simple_spinner_item, opciones
+            this,
+            android.R.layout.simple_spinner_item,
+            opciones
         ) {
             override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
                 return decorar(super.getView(position, convertView, parent))
@@ -90,22 +93,43 @@ class NutricionActivity : AppCompatActivity() {
     }
 
     private fun guardarTurno() {
-        if (selectorDia.selectedItemPosition <= 0 || selectorHora.selectedItemPosition <= 0) {
+        if (
+            selectorDia.selectedItemPosition <= 0 ||
+            selectorHora.selectedItemPosition <= 0
+        ) {
             informar("Elige un día y un horario para continuar.")
             return
         }
+
         val dia = selectorDia.selectedItem.toString()
         val hora = selectorHora.selectedItem.toString()
         val id = idEnEdicion
-        val resultado = if (id == null) NutricionStore.crear(dia, hora)
-                        else NutricionStore.actualizar(id, dia, hora)
+        val resultado = if (id == null) {
+            NutricionStore.crear(dia, hora)
+        } else {
+            NutricionStore.actualizar(id, dia, hora)
+        }
+
         when (resultado) {
             NutricionStore.Resultado.EXITO -> {
                 limpiarFormulario()
-                informar(if (id == null) "Turno reservado en esta demostración." else "Cambios guardados.")
+                informar(
+                    if (id == null) {
+                        "Turno reservado en esta demostración."
+                    } else {
+                        "Cambios guardados."
+                    }
+                )
             }
-            NutricionStore.Resultado.INVALIDO -> informar("Elige un día y un horario de ejemplo válidos.")
-            NutricionStore.Resultado.DUPLICADO -> informar("Ya tienes un turno para ese día y horario.")
+
+            NutricionStore.Resultado.INVALIDO -> {
+                informar("Elige un día y un horario de ejemplo válidos.")
+            }
+
+            NutricionStore.Resultado.DUPLICADO -> {
+                informar("Ya tienes un turno para ese día y horario.")
+            }
+
             NutricionStore.Resultado.NO_ENCONTRADO -> {
                 limpiarFormulario()
                 informar("El turno ya no existe. Puedes reservar otro.")
@@ -121,6 +145,7 @@ class NutricionActivity : AppCompatActivity() {
             mostrarTurnos()
             return
         }
+
         idEnEdicion = id
         selectorDia.setSelection(NutricionStore.dias.indexOf(turno.dia) + 1)
         selectorHora.setSelection(NutricionStore.horarios.indexOf(turno.hora) + 1)
@@ -149,9 +174,16 @@ class NutricionActivity : AppCompatActivity() {
             .setNegativeButton("Conservar turno", null)
             .setPositiveButton("Cancelar turno") { _, _ ->
                 val resultado = NutricionStore.eliminar(turno.id)
-                if (idEnEdicion == turno.id) limpiarFormulario()
-                informar(if (resultado == NutricionStore.Resultado.EXITO) "Turno cancelado."
-                         else "El turno ya no existe.")
+                if (idEnEdicion == turno.id) {
+                    limpiarFormulario()
+                }
+                informar(
+                    if (resultado == NutricionStore.Resultado.EXITO) {
+                        "Turno cancelado."
+                    } else {
+                        "El turno ya no existe."
+                    }
+                )
                 mostrarTurnos()
             }
             .show()
@@ -161,25 +193,39 @@ class NutricionActivity : AppCompatActivity() {
         val lista = findViewById<LinearLayout>(R.id.listaTurnosNutricion)
         val vacio = findViewById<TextView>(R.id.sinTurnosNutricion)
         val turnos = NutricionStore.getAll()
+
         lista.removeAllViews()
         vacio.visibility = if (turnos.isEmpty()) View.VISIBLE else View.GONE
+
         for (turno in turnos) {
             val tarjeta = LinearLayout(this).apply {
                 orientation = LinearLayout.VERTICAL
                 setBackgroundResource(R.drawable.bg_card)
                 setPadding(dp(16), dp(16), dp(16), dp(16))
             }
-            tarjeta.addView(TextView(this).apply {
-                text = "${turno.dia} · ${turno.hora}"
-                textSize = 18f
-                setTextColor(Color.WHITE)
-            })
-            // Los callbacks usan el id estable, nunca la posición en la lista.
-            tarjeta.addView(boton("Modificar") { editarTurno(turno.id) })
-            tarjeta.addView(boton("Cancelar") { confirmarCancelacion(turno) })
-            lista.addView(tarjeta, LinearLayout.LayoutParams(-1, -2).apply {
-                bottomMargin = dp(12)
-            })
+            tarjeta.addView(
+                TextView(this).apply {
+                    text = "${turno.dia} · ${turno.hora}"
+                    textSize = 18f
+                    setTextColor(Color.WHITE)
+                }
+            )
+            tarjeta.addView(
+                boton("Modificar") {
+                    editarTurno(turno.id)
+                }
+            )
+            tarjeta.addView(
+                boton("Cancelar") {
+                    confirmarCancelacion(turno)
+                }
+            )
+            lista.addView(
+                tarjeta,
+                LinearLayout.LayoutParams(-1, -2).apply {
+                    bottomMargin = dp(12)
+                }
+            )
         }
     }
 
@@ -192,8 +238,12 @@ class NutricionActivity : AppCompatActivity() {
             setBackgroundColor(Color.parseColor("#102A49"))
             minHeight = dp(48)
             setPadding(dp(12), dp(8), dp(12), dp(8))
-            layoutParams = LinearLayout.LayoutParams(-1, -2).apply { topMargin = dp(8) }
-            setOnClickListener { accion() }
+            layoutParams = LinearLayout.LayoutParams(-1, -2).apply {
+                topMargin = dp(8)
+            }
+            setOnClickListener {
+                accion()
+            }
         }
     }
 

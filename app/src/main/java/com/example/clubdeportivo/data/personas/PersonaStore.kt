@@ -5,11 +5,16 @@ import java.util.Calendar
 import java.util.TimeZone
 import java.util.UUID
 
-/** Registro demo independiente de clases, login y credenciales; vive solo en memoria. */
 object PersonaStore {
-    enum class Tipo(val etiqueta: String) { SOCIO("Socio"), NO_SOCIO("No Socio") }
+    enum class Tipo(val etiqueta: String) {
+        SOCIO("Socio"),
+        NO_SOCIO("No Socio")
+    }
+
     enum class Estado(val etiqueta: String) {
-        ACTIVA("Activa"), VENCIDA("Vencida"), SIN_PAGAR("Sin pagar")
+        ACTIVA("Activa"),
+        VENCIDA("Vencida"),
+        SIN_PAGAR("Sin pagar")
     }
 
     data class Persona(
@@ -20,7 +25,6 @@ object PersonaStore {
         val tipo: Tipo,
         val vencimientoNullable: Long?
     ) {
-        // Compara días locales, no horas: una cuota que vence hoy sigue activa.
         fun estado(hoy: Long = System.currentTimeMillis()): Estado = when {
             vencimientoNullable == null -> Estado.SIN_PAGAR
             dia(vencimientoNullable) < dia(hoy) -> Estado.VENCIDA
@@ -28,7 +32,14 @@ object PersonaStore {
         }
     }
 
-    enum class Error { NOMBRE_VACIO, APELLIDO_VACIO, DNI_INVALIDO, DNI_DUPLICADO, NO_ENCONTRADA }
+    enum class Error {
+        NOMBRE_VACIO,
+        APELLIDO_VACIO,
+        DNI_INVALIDO,
+        DNI_DUPLICADO,
+        NO_ENCONTRADA
+    }
+
     sealed class Resultado {
         data class Guardada(val persona: Persona) : Resultado()
         data class Eliminada(val persona: Persona) : Resultado()
@@ -36,16 +47,21 @@ object PersonaStore {
     }
 
     data class Tarifas(val mensualCentavos: Long, val diariaCentavos: Long)
+
     enum class Concepto(val etiqueta: String, val dias: Int, val tipo: Tipo) {
         CUOTA_MENSUAL("Cuota mensual", 30, Tipo.SOCIO),
         PASE_DIARIO("Pase diario", 1, Tipo.NO_SOCIO)
     }
+
     enum class ErrorCobro {
-        IMPORTE_INVALIDO, PERSONA_NO_ENCONTRADA, TARIFAS_SIN_CONFIGURAR,
-        TIPO_INVALIDO, RESUMEN_OBSOLETO, OPERACION_INVALIDA
+        IMPORTE_INVALIDO,
+        PERSONA_NO_ENCONTRADA,
+        TARIFAS_SIN_CONFIGURAR,
+        TIPO_INVALIDO,
+        RESUMEN_OBSOLETO,
+        OPERACION_INVALIDA
     }
 
-    /** Valores históricos inmutables; las fechas son milisegundos y el importe es en centavos. */
     @ConsistentCopyVisibility
     data class ResumenCobro internal constructor(
         val operacionId: String,
@@ -89,10 +105,11 @@ object PersonaStore {
 
     fun getTarifas(): Tarifas? = tarifasActuales
 
-    /** Sin miles ni redondeo; admite espacios exteriores y coma o punto decimal. */
     fun parsearCentavos(entrada: String): Long? {
         val texto = entrada.trim()
-        if (!texto.matches(Regex("[0-9]+([.,][0-9]{1,2})?"))) return null
+        if (!texto.matches(Regex("[0-9]+([.,][0-9]{1,2})?"))) {
+            return null
+        }
         return try {
             BigDecimal(texto.replace(',', '.')).movePointRight(2).longValueExact()
                 .takeIf { it > 0 }
@@ -132,21 +149,27 @@ object PersonaStore {
             ?: return ResultadoCobro.Fallo(ErrorCobro.PERSONA_NO_ENCONTRADA)
         val tarifas = tarifasActuales
             ?: return ResultadoCobro.Fallo(ErrorCobro.TARIFAS_SIN_CONFIGURAR)
-        if (persona.tipo != concepto.tipo) return ResultadoCobro.Fallo(ErrorCobro.TIPO_INVALIDO)
+        if (persona.tipo != concepto.tipo) {
+            return ResultadoCobro.Fallo(ErrorCobro.TIPO_INVALIDO)
+        }
         return ResultadoCobro.Resumen(calcularResumen(persona, concepto, tarifas, operacionId))
     }
 
-    /** Repetir exactamente un resumen aceptado devuelve su comprobante, incluso tras una baja. */
     fun confirmarCobro(resumen: ResumenCobro): ResultadoCobro {
         operaciones[resumen.operacionId]?.let { (aceptado, comprobante) ->
-            return if (resumen == aceptado) ResultadoCobro.Confirmado(comprobante)
-            else ResultadoCobro.Fallo(ErrorCobro.OPERACION_INVALIDA)
+            return if (resumen == aceptado) {
+                ResultadoCobro.Confirmado(comprobante)
+            } else {
+                ResultadoCobro.Fallo(ErrorCobro.OPERACION_INVALIDA)
+            }
         }
         if (!operacionValida(resumen.operacionId)) {
             return ResultadoCobro.Fallo(ErrorCobro.OPERACION_INVALIDA)
         }
         val indice = personas.indexOfFirst { it.id == resumen.persona.id }
-        if (indice < 0) return ResultadoCobro.Fallo(ErrorCobro.PERSONA_NO_ENCONTRADA)
+        if (indice < 0) {
+            return ResultadoCobro.Fallo(ErrorCobro.PERSONA_NO_ENCONTRADA)
+        }
         val persona = personas[indice]
         val tarifas = tarifasActuales
             ?: return ResultadoCobro.Fallo(ErrorCobro.TARIFAS_SIN_CONFIGURAR)
@@ -155,13 +178,24 @@ object PersonaStore {
         }
         val ahora = System.currentTimeMillis()
         val vigente = calcularResumen(persona, resumen.concepto, tarifas, resumen.operacionId, ahora)
-        if (resumen != vigente) return ResultadoCobro.Fallo(ErrorCobro.RESUMEN_OBSOLETO)
+        if (resumen != vigente) {
+            return ResultadoCobro.Fallo(ErrorCobro.RESUMEN_OBSOLETO)
+        }
         val comprobante = Comprobante(
-            UUID.randomUUID().toString(), resumen.operacionId, persona.id,
-            persona.nombre, persona.apellido, persona.dni, persona.tipo, resumen.concepto,
-            resumen.importeCentavos, ahora, persona.vencimientoNullable, resumen.nuevoVencimiento
+            UUID.randomUUID().toString(),
+            resumen.operacionId,
+            persona.id,
+            persona.nombre,
+            persona.apellido,
+            persona.dni,
+            persona.tipo,
+            resumen.concepto,
+            resumen.importeCentavos,
+            ahora,
+            persona.vencimientoNullable,
+            resumen.nuevoVencimiento
         )
-        // Todas las validaciones preceden a la transacción en el hilo único de la UI.
+
         personas[indice] = persona.copy(vencimientoNullable = resumen.nuevoVencimiento)
         comprobantes.add(comprobante)
         operaciones[resumen.operacionId] = resumen to comprobante
@@ -169,7 +203,9 @@ object PersonaStore {
     }
 
     fun getComprobanteById(id: String): Comprobante? = comprobantes.firstOrNull { it.id == id }
+
     fun getComprobantes(): List<Comprobante> = comprobantes.asReversed().toList()
+
     fun getComprobantesByPersonaId(personaId: String): List<Comprobante> =
         comprobantes.asReversed().filter { it.personaId == personaId }
 
@@ -199,8 +235,18 @@ object PersonaStore {
             Concepto.CUOTA_MENSUAL -> tarifas.mensualCentavos
             Concepto.PASE_DIARIO -> tarifas.diariaCentavos
         }
-        return ResumenCobro(operacionId, persona, concepto, tarifas, importe,
-            hoy, zona.id, base, nuevo, renovacion)
+        return ResumenCobro(
+            operacionId,
+            persona,
+            concepto,
+            tarifas,
+            importe,
+            hoy,
+            zona.id,
+            base,
+            nuevo,
+            renovacion
+        )
     }
 
     private fun inicioDia(fecha: Long, zona: TimeZone): Long = Calendar.getInstance(zona).apply {
@@ -218,9 +264,17 @@ object PersonaStore {
     )
 
     fun getAll(): List<Persona> = personas.toList()
+
     fun getById(id: String): Persona? = personas.firstOrNull { it.id == id }
 
-    /** DNI demo: solo 7–8 dígitos ASCII, sin puntos/espacios internos ni todos ceros. */
+    fun cuotaVenceHoy(persona: Persona, hoy: Long = System.currentTimeMillis()): Boolean {
+        if (persona.tipo != Tipo.SOCIO) {
+            return false
+        }
+        val vencimiento = persona.vencimientoNullable ?: return false
+        return dia(vencimiento) == dia(hoy)
+    }
+
     fun dniValido(dni: String): Boolean {
         val limpio = dni.trim()
         return limpio.matches(Regex("[0-9]{7,8}")) && limpio.any { it != '0' }
@@ -228,19 +282,30 @@ object PersonaStore {
 
     fun create(nombre: String, apellido: String, dni: String, tipo: Tipo): Resultado {
         validar(nombre, apellido, dni, null)?.let { return Resultado.Fallo(it) }
-        val persona = Persona(UUID.randomUUID().toString(), nombre.trim(), apellido.trim(),
-            dni.trim(), tipo, null)
+        val persona = Persona(
+            UUID.randomUUID().toString(),
+            nombre.trim(),
+            apellido.trim(),
+            dni.trim(),
+            tipo,
+            null
+        )
         personas.add(persona)
         return Resultado.Guardada(persona)
     }
 
-    // No recibe vencimiento: editar datos personales no representa un cobro.
     fun update(id: String, nombre: String, apellido: String, dni: String, tipo: Tipo): Resultado {
         val indice = personas.indexOfFirst { it.id == id }
-        if (indice < 0) return Resultado.Fallo(Error.NO_ENCONTRADA)
+        if (indice < 0) {
+            return Resultado.Fallo(Error.NO_ENCONTRADA)
+        }
         validar(nombre, apellido, dni, id)?.let { return Resultado.Fallo(it) }
-        val actualizada = personas[indice].copy(nombre = nombre.trim(), apellido = apellido.trim(),
-            dni = dni.trim(), tipo = tipo)
+        val actualizada = personas[indice].copy(
+            nombre = nombre.trim(),
+            apellido = apellido.trim(),
+            dni = dni.trim(),
+            tipo = tipo
+        )
         personas[indice] = actualizada
         return Resultado.Guardada(actualizada)
     }

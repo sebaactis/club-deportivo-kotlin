@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="access_navy">#071A33</color>
+    <color name="access_surface">#0F2A4D</color>
+    <color name="access_border">#23446E</color>
+    <color name="access_member">#FFC72C</color>
+    <color name="access_member_pressed">#D69E14</color>
+    <color name="access_staff">#3E9BFF</color>
+    <color name="access_error">#FF5A5F</color>
+    <color name="access_success">#35D07F</color>
+    <color name="access_disabled">#1E385C</color>
+    <color name="access_text_primary">#F2F6FC</color>
+    <color name="access_text_secondary">#93A9C8</color>
+    <color name="access_on_accent">#0A1B33</color>
+</resources>

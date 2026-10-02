@@ -1,9 +1,5 @@
 package com.example.clubdeportivo.ui.recepcion
 
-import com.example.clubdeportivo.R
-
-import com.example.clubdeportivo.data.personas.PersonaStore
-
 import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
@@ -11,6 +7,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatEditText
+import com.example.clubdeportivo.R
+import com.example.clubdeportivo.data.personas.PersonaStore
 
 class PersonaFormActivity : AppCompatActivity() {
     companion object {
@@ -30,7 +28,6 @@ class PersonaFormActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Solo la ausencia del extra permite crear; un extra inválido nunca es un alta.
         if (intent.hasExtra(EXTRA_PERSONA_ID)) {
             personaId = try {
                 intent.getStringExtra(EXTRA_PERSONA_ID)
@@ -55,7 +52,9 @@ class PersonaFormActivity : AppCompatActivity() {
         mensaje = findViewById(R.id.tvMensajePersona)
         findViewById<TextView>(R.id.tvTituloPersona).text =
             if (personaId == null) "Nueva persona" else "Editar persona"
-        findViewById<AppCompatButton>(R.id.btnVolverPersona).setOnClickListener { finish() }
+        findViewById<AppCompatButton>(R.id.btnVolverPersona).setOnClickListener {
+            finish()
+        }
 
         if (savedInstanceState != null) {
             nombre.setText(savedInstanceState.getString("nombre", ""))
@@ -86,7 +85,9 @@ class PersonaFormActivity : AppCompatActivity() {
                 .setNegativeButton("Cancelar", null)
                 .show()
         }
-        guardar.setOnClickListener { guardarPersona() }
+        guardar.setOnClickListener {
+            guardarPersona()
+        }
     }
 
     override fun onResume() {
@@ -113,7 +114,9 @@ class PersonaFormActivity : AppCompatActivity() {
     }
 
     private fun guardarPersona() {
-        if (guardando || isFinishing) return
+        if (guardando || isFinishing) {
+            return
+        }
         if (personaId?.let { PersonaStore.getById(it) == null } == true) {
             rechazarEdicion()
             return
@@ -127,13 +130,25 @@ class PersonaFormActivity : AppCompatActivity() {
         guardando = true
         guardar.isEnabled = false
         val resultado = personaId?.let { id ->
-            PersonaStore.update(id, nombre.text.toString(), apellido.text.toString(), dni.text.toString(), seleccion)
-        } ?: PersonaStore.create(nombre.text.toString(), apellido.text.toString(), dni.text.toString(), seleccion)
+            PersonaStore.update(
+                id,
+                nombre.text.toString(),
+                apellido.text.toString(),
+                dni.text.toString(),
+                seleccion
+            )
+        } ?: PersonaStore.create(
+            nombre.text.toString(),
+            apellido.text.toString(),
+            dni.text.toString(),
+            seleccion
+        )
         when (resultado) {
             is PersonaStore.Resultado.Guardada -> {
                 setResult(RESULT_OK)
                 finish()
             }
+
             is PersonaStore.Resultado.Fallo -> {
                 if (resultado.error == PersonaStore.Error.NO_ENCONTRADA) {
                     rechazarEdicion()
@@ -142,13 +157,15 @@ class PersonaFormActivity : AppCompatActivity() {
                 mensaje.text = when (resultado.error) {
                     PersonaStore.Error.NOMBRE_VACIO -> "Ingresa el nombre."
                     PersonaStore.Error.APELLIDO_VACIO -> "Ingresa el apellido."
-                    PersonaStore.Error.DNI_INVALIDO -> "DNI inválido: usa 7 u 8 dígitos, sin puntos ni espacios internos; no todos ceros."
+                    PersonaStore.Error.DNI_INVALIDO ->
+                        "DNI inválido: usa 7 u 8 dígitos, sin puntos ni espacios internos; no todos ceros."
                     PersonaStore.Error.DNI_DUPLICADO -> "Ya existe otra persona con ese DNI."
                     PersonaStore.Error.NO_ENCONTRADA -> "La persona ya no existe."
                 }
                 guardando = false
                 guardar.isEnabled = true
             }
+
             is PersonaStore.Resultado.Eliminada -> {
                 mensaje.text = "No se pudo guardar la persona."
                 guardando = false
@@ -158,7 +175,11 @@ class PersonaFormActivity : AppCompatActivity() {
     }
 
     private fun rechazarEdicion() {
-        Toast.makeText(this, "No se puede editar: la persona no existe o el identificador es inválido.", Toast.LENGTH_LONG).show()
+        Toast.makeText(
+            this,
+            "No se puede editar: la persona no existe o el identificador es inválido.",
+            Toast.LENGTH_LONG
+        ).show()
         setResult(RESULT_CANCELED)
         finish()
     }

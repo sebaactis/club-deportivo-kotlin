@@ -1,71 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/reservasRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#071326"
-    android:orientation="vertical"
-    android:padding="20dp">
-
-    <TextView
-        android:id="@+id/backButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingVertical="8dp"
-        android:text="‹ Volver"
-        android:textColor="#94A3B8"
-        android:textSize="14sp" />
-
-    <TextView
-        android:id="@+id/confirmationTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:text="Confirmar reserva"
-        android:textColor="#FFFFFF"
-        android:textSize="24sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Revisa los datos antes de confirmar."
-        android:textColor="#94A3B8"
-        android:textSize="14sp" />
-
-    <TextView
-        android:id="@+id/reservationSummary"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/bg_card"
-        android:padding="20dp"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-    <Space
+    android:background="#071A33"
+    android:orientation="vertical">
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/confirmButton"
+        android:layout_weight="1"
+        android:fillViewport="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp">
+            <TextView
+                android:id="@+id/backButton"
+                style="@style/reservas_body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:gravity="center_vertical"
+                android:text="@string/reservas_back" />
+            <TextView
+                android:id="@+id/confirmationTitle"
+                style="@style/reservas_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/reservas_confirm_title" />
+            <TextView
+                style="@style/reservas_body"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="@string/reservas_confirm_help" />
+            <LinearLayout
+                android:id="@+id/confirmationCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/access_card"
+                android:orientation="vertical"
+                android:padding="16dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/teacherInitials"
+                        style="@style/access_text_card_title"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:background="@drawable/reservas_avatar"
+                        android:gravity="center"
+                        android:textColor="#071A33" />
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="12dp"
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/confirmationClass"
+                            style="@style/access_text_card_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/confirmationTeacher"
+                            style="@style/reservas_caption"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="#23446E" />
+                <LinearLayout
+                    android:id="@+id/confirmationDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="#23446E" />
+                <TextView
+                    android:id="@+id/confirmationMember"
+                    style="@style/reservas_caption"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/confirmationQuota"
+                    style="@style/reservas_caption"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp" />
+            </LinearLayout>
+            <TextView
+                android:id="@+id/reservationSummary"
+                style="@style/access_text_error"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:accessibilityLiveRegion="polite"
+                android:visibility="gone" />
+            <TextView
+                style="@style/reservas_caption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:text="@string/reservas_demo_note" />
+        </LinearLayout>
+    </ScrollView>
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="52dp"
-        android:background="@drawable/bg_badge_yellow"
-        android:text="Confirmar reserva"
-        android:textAllCaps="false"
-        android:textColor="#071326"
-        android:textStyle="bold" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/modifyButton"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/bg_input_field"
-        android:text="Modificar selección"
-        android:textAllCaps="false"
-        android:textColor="#FFFFFF" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="24dp">
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/confirmButton"
+            style="@style/reservas_primary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/reservas_confirm" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/modifyButton"
+            style="@style/reservas_secondary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/reservas_modify" />
+    </LinearLayout>
 </LinearLayout>

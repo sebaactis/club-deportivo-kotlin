@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/routineRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#071326"
@@ -15,6 +16,11 @@
             android:id="@+id/backButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:minWidth="64dp"
+            android:gravity="center_vertical"
+            android:contentDescription="Volver"
+            android:fontFamily="@font/inter_regular"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:text="‹  Volver"
@@ -22,6 +28,8 @@
             android:textSize="16sp" />
 
         <TextView
+            android:id="@+id/routineTitle"
+            android:fontFamily="@font/inter_bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -31,6 +39,8 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/routineContext"
+            android:fontFamily="@font/inter_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"

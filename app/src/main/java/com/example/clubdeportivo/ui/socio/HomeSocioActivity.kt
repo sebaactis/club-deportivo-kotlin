@@ -1,88 +1,171 @@
 package com.example.clubdeportivo.ui.socio
 
+import android.content.Intent
+import android.os.Bundle
+import android.view.View
+import android.widget.ScrollView
+import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
 import com.example.clubdeportivo.R
+import com.example.clubdeportivo.data.reservas.ReservationStore
+import com.example.clubdeportivo.ui.acceso.DemoAccess
+import com.example.clubdeportivo.ui.inicio.MainActivity
 import com.example.clubdeportivo.ui.nutricion.NutricionActivity
 import com.example.clubdeportivo.ui.reservas.ReservationActivity
 
-import com.example.clubdeportivo.data.reservas.ReservationStore
-
-import android.os.Bundle
-import android.widget.LinearLayout
-import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatButton
-
 class HomeSocioActivity : AppCompatActivity() {
+    private var profileDialog: AlertDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_socio)
+        instalarInsets()
 
-        val tvUserName = findViewById<TextView>(R.id.tvUserName)
-        val tvAvatar = findViewById<TextView>(R.id.tvAvatar)
-        val btnVerCredencial = findViewById<AppCompatButton>(R.id.btnVerCredencial)
-
-        val btnReservarClase = findViewById<LinearLayout>(R.id.btnReservarClase)
-        val btnMisClases = findViewById<LinearLayout>(R.id.btnMisClases)
-        val btnMiRutina = findViewById<LinearLayout>(R.id.btnMiRutina)
-        val btnNutricion = findViewById<LinearLayout>(R.id.btnNutricion)
-
-        val btnProximaClase = findViewById<LinearLayout>(R.id.btnProximaClase)
-
-        val tvMisClasesCount = findViewById<TextView>(R.id.tvMisClasesCount)
-
-        btnVerCredencial.setOnClickListener {
-            startActivity(android.content.Intent(this, CredencialActivity::class.java))
+        findViewById<View>(R.id.tvAvatar).setOnClickListener {
+            mostrarPerfil()
         }
-
-        btnReservarClase.setOnClickListener {
-            startActivity(android.content.Intent(this, ReservationActivity::class.java))
+        findViewById<View>(R.id.btnPerfil).setOnClickListener {
+            mostrarPerfil()
         }
-
-        btnMisClases.setOnClickListener {
-            startActivity(android.content.Intent(this, MisClasesActivity::class.java))
+        findViewById<View>(R.id.btnVerCredencial).setOnClickListener {
+            startActivity(Intent(this, CredencialActivity::class.java))
         }
-
-        btnMiRutina.setOnClickListener {
-            startActivity(android.content.Intent(this, MiRutinaActivity::class.java))
+        findViewById<View>(R.id.btnCredencial).setOnClickListener {
+            startActivity(Intent(this, CredencialActivity::class.java))
         }
-
-        btnNutricion.setOnClickListener {
-            startActivity(android.content.Intent(this, NutricionActivity::class.java))
+        findViewById<View>(R.id.btnReservarClase).setOnClickListener {
+            startActivity(Intent(this, ReservationActivity::class.java))
         }
-
-        btnProximaClase.setOnClickListener {
-            startActivity(android.content.Intent(this, MisClasesActivity::class.java))
+        findViewById<View>(R.id.btnMisClases).setOnClickListener {
+            abrirMisClases()
         }
-
-        // El texto con la cantidad de reservas se refresca cada vez que volvemos al inicio.
-        actualizarContadorReservas(tvMisClasesCount)
+        findViewById<View>(R.id.btnClases).setOnClickListener {
+            abrirMisClases()
+        }
+        findViewById<View>(R.id.btnProximaClase).setOnClickListener {
+            abrirMisClases()
+        }
+        findViewById<View>(R.id.btnMiRutina).setOnClickListener {
+            startActivity(Intent(this, MiRutinaActivity::class.java))
+        }
+        findViewById<View>(R.id.btnNutricion).setOnClickListener {
+            startActivity(Intent(this, NutricionActivity::class.java))
+        }
+        findViewById<View>(R.id.btnInicio).apply {
+            isSelected = true
+            setOnClickListener {
+                actualizarInicio()
+                findViewById<ScrollView>(R.id.socioHomeScroll).smoothScrollTo(0, 0)
+            }
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        actualizarContadorReservas(findViewById<TextView>(R.id.tvMisClasesCount))
-        actualizarTarjetaReserva()
+        actualizarInicio()
     }
 
-    private fun actualizarTarjetaReserva() {
-        val reserva = ReservationStore.getAll().firstOrNull()
-        findViewById<TextView>(R.id.tvReservaNombre).text = reserva?.className ?: "Sin reservas"
-        findViewById<TextView>(R.id.tvReservaHorario).text =
-            reserva?.let { "${it.day} · ${it.time}" } ?: "Reserva una clase desde el acceso rápido."
-        findViewById<TextView>(R.id.tvReservaDetalle).text = if (reserva == null) {
-            "Toca para ver Mis clases."
+    override fun onPause() {
+        profileDialog?.dismiss()
+        profileDialog = null
+        super.onPause()
+    }
+
+    private fun perfilSocio(): DemoAccess.Profile? {
+        val profile = DemoAccess.currentProfile
+        if (profile == null || profile.role != DemoAccess.Role.SOCIO) {
+            if (!isFinishing) {
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
+            }
+            return null
+        }
+        return profile
+    }
+
+    private fun actualizarInicio() {
+        val profile = perfilSocio() ?: return
+        findViewById<TextView>(R.id.tvUserName).text = profile.name
+        var initials = ""
+        for (word in profile.name.split(" ")) {
+            if (word.isNotBlank() && initials.length < 2) {
+                initials += word.first().uppercaseChar()
+            }
+        }
+        findViewById<TextView>(R.id.tvAvatar).text = initials
+
+        val quota = findViewById<TextView>(R.id.tvCuota)
+        val member = findViewById<TextView>(R.id.tvSocioDetalle)
+        if (profile.id == "demo-member-1") {
+            quota.setText(R.string.socio_home_demo_paid)
+            quota.setTextColor(getColor(R.color.access_success))
+            member.text = getString(R.string.socio_home_demo_member, profile.dni)
         } else {
-            "Primera reserva guardada de ejemplo, no por fecha. Toca para ver Mis clases."
+            quota.setText(R.string.socio_home_no_quota)
+            quota.setTextColor(getColor(R.color.access_text_secondary))
+            member.text = getString(R.string.socio_home_unassigned_member, profile.dni)
+        }
+
+        actualizarReservas()
+    }
+
+    private fun actualizarReservas() {
+        val reservas = ReservationStore.getAll()
+        val cantidad = reservas.size
+        findViewById<TextView>(R.id.tvMisClasesCount).text = if (cantidad == 1) {
+            getString(R.string.socio_home_one_booking)
+        } else {
+            getString(R.string.socio_home_booking_count, cantidad)
+        }
+
+        val reserva = reservas.firstOrNull()
+        val nombre = findViewById<TextView>(R.id.tvReservaNombre)
+        val horario = findViewById<TextView>(R.id.tvReservaHorario)
+        val detalle = findViewById<TextView>(R.id.tvReservaDetalle)
+        if (reserva == null) {
+            nombre.setText(R.string.socio_home_empty)
+            horario.setText(R.string.socio_home_empty_help)
+            detalle.setText(R.string.socio_home_open_classes)
+        } else {
+            nombre.text = reserva.className
+            horario.text = getString(R.string.socio_home_booking_time, reserva.day, reserva.time)
+            detalle.setText(R.string.socio_home_first_saved)
         }
     }
 
-    private fun actualizarContadorReservas(contador: TextView) {
-        val cantidad = ReservationStore.getAll().size
-        if (cantidad == 1) {
-            contador.text = "1 reservada"
-        } else {
-            contador.text = "$cantidad reservadas"
+    private fun abrirMisClases() {
+        startActivity(Intent(this, MisClasesActivity::class.java))
+    }
+
+    private fun mostrarPerfil() {
+        val profile = perfilSocio() ?: return
+        profileDialog?.dismiss()
+        profileDialog = AlertDialog.Builder(this)
+            .setTitle(R.string.socio_home_profile)
+            .setMessage(getString(R.string.socio_home_profile_details, profile.name, profile.dni))
+            .setPositiveButton(R.string.socio_home_close, null)
+            .show()
+    }
+
+    private fun instalarInsets() {
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        WindowCompat.getInsetsController(window, window.decorView).apply {
+            isAppearanceLightStatusBars = false
+            isAppearanceLightNavigationBars = false
         }
+
+        val root = findViewById<View>(R.id.socioHomeRoot)
+        ViewCompat.setOnApplyWindowInsetsListener(root) { view, insets ->
+            val bars = insets.getInsets(
+                WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
+            )
+            view.setPadding(bars.left, bars.top, bars.right, bars.bottom)
+            insets
+        }
+        ViewCompat.requestApplyInsets(root)
     }
 }

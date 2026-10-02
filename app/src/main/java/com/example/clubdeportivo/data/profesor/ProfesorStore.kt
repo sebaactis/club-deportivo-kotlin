@@ -36,29 +36,49 @@ object ProfesorStore {
     )
 
     val clases = listOf(
-        Clase("funcional-2025-08-26-0900", "Entrenamiento Funcional",
-            "Martes 26/08/2025", "09:00", "Salón 2", sociosEjemplo.take(6)),
-        Clase(CLASE_PROXIMA_ID, "Entrenamiento Funcional",
-            "Martes 26/08/2025", "18:00", "Salón 2", sociosEjemplo),
-        Clase("funcional-2025-08-26-1930", "Entrenamiento Funcional",
-            "Martes 26/08/2025", "19:30", "Salón 2", emptyList())
+        Clase(
+            "funcional-2025-08-26-0900",
+            "Entrenamiento Funcional",
+            "Martes 26/08/2025",
+            "09:00",
+            "Salón 2",
+            sociosEjemplo.take(6)
+        ),
+        Clase(
+            CLASE_PROXIMA_ID,
+            "Entrenamiento Funcional",
+            "Martes 26/08/2025",
+            "18:00",
+            "Salón 2",
+            sociosEjemplo
+        ),
+        Clase(
+            "funcional-2025-08-26-1930",
+            "Entrenamiento Funcional",
+            "Martes 26/08/2025",
+            "19:30",
+            "Salón 2",
+            emptyList()
+        )
     )
 
-    // La clave es clase + socio, nunca la posición en la lista.
-    // Las marcas duran solamente mientras vive el proceso de la aplicación.
     private val presentes = mutableMapOf<String, MutableSet<String>>()
 
     fun buscarClase(id: String?): Clase? = clases.find { it.id == id }
 
     fun estaPresente(claseId: String, socioId: String): Boolean {
         val clase = buscarClase(claseId) ?: return false
-        if (clase.socios.none { it.id == socioId }) return false
+        if (clase.socios.none { it.id == socioId }) {
+            return false
+        }
         return presentes[claseId]?.contains(socioId) == true
     }
 
     fun marcarPresente(claseId: String, socioId: String, presente: Boolean): Boolean {
         val clase = buscarClase(claseId) ?: return false
-        if (clase.socios.none { it.id == socioId }) return false
+        if (clase.socios.none { it.id == socioId }) {
+            return false
+        }
         if (presente) {
             presentes.getOrPut(claseId) { mutableSetOf() }.add(socioId)
         } else {

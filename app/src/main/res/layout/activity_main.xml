@@ -1,232 +1,209 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/accessRoot"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#071326"
-    android:orientation="vertical"
-    android:padding="24dp">
-
-    <!-- Header: Logo, Idioma y Tema -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <!-- Logo -->
-        <TextView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/bg_circle_yellow"
-            android:gravity="center"
-            android:text="A"
-            android:textColor="#071326"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
+    android:layout_height="match_parent">
+    <ScrollView
+        android:id="@+id/accessScroll"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        android:clipToPadding="false"
+        app:layout_constraintWidth_max="520dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp">
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="CLUB DEPORTIVO"
-                android:textColor="#94A3B8"
-                android:textSize="10sp"
-                android:textStyle="bold" />
-
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:src="@drawable/access_brand"
+                    android:contentDescription="@string/access_brand" />
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="10dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/tvClub"
+                        style="@style/access_text_badge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/access_club"
+                        android:textSize="8sp" />
+                    <TextView
+                        android:id="@+id/tvBrand"
+                        style="@style/access_text_card_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/access_algorithm"
+                        android:textSize="17sp" />
+                </LinearLayout>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnEs"
+                    style="@style/access_language"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:text="@string/access_es" />
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnEn"
+                    style="@style/access_language"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:text="@string/access_en" />
+            </LinearLayout>
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/tvWelcome"
+                style="@style/access_text_welcome"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ALGORITMO"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:layout_marginTop="32dp"
+                android:text="@string/access_welcome" />
+            <TextView
+                android:id="@+id/tvSubtitle"
+                style="@style/access_text_body"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/access_choose" />
+            <LinearLayout
+                android:id="@+id/btnSocio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="82dp"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/access_card"
+                android:padding="16dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:clickable="true"
+                android:focusable="true"
+                android:descendantFocusability="blocksDescendants">
+                <TextView
+                    android:id="@+id/iconSocio"
+                    style="@style/access_text_card_title"
+                    android:layout_width="46dp"
+                    android:layout_height="46dp"
+                    android:background="@drawable/access_circle_member"
+                    android:gravity="center"
+                    android:text="S"
+                    android:textColor="@color/access_on_accent"
+                    android:importantForAccessibility="no" />
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="14dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/tvMember"
+                        style="@style/access_text_card_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/access_member" />
+                    <TextView
+                        android:id="@+id/tvMemberHelp"
+                        style="@style/access_text_caption"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/access_member_help" />
+                </LinearLayout>
+                <TextView
+                    style="@style/access_text_body"
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:text="›"
+                    android:gravity="end"
+                    android:importantForAccessibility="no" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/btnProfesor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="82dp"
+                android:layout_marginTop="14dp"
+                android:background="@drawable/access_card"
+                android:padding="16dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:clickable="true"
+                android:focusable="true"
+                android:descendantFocusability="blocksDescendants">
+                <TextView
+                    android:id="@+id/iconProfesor"
+                    style="@style/access_text_card_title"
+                    android:layout_width="46dp"
+                    android:layout_height="46dp"
+                    android:background="@drawable/access_circle_staff"
+                    android:gravity="center"
+                    android:text="P"
+                    android:textColor="@color/access_on_accent"
+                    android:importantForAccessibility="no" />
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="14dp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/tvStaff"
+                        style="@style/access_text_card_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/access_staff" />
+                    <TextView
+                        android:id="@+id/tvStaffHelp"
+                        style="@style/access_text_caption"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/access_staff_help" />
+                </LinearLayout>
+                <TextView
+                    style="@style/access_text_body"
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:text="›"
+                    android:gravity="end"
+                    android:importantForAccessibility="no" />
+            </LinearLayout>
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_weight="1" />
+            <LinearLayout
+                android:id="@+id/accessRegistration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <TextView
+                    android:id="@+id/tvNoAccount"
+                    style="@style/access_text_caption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/access_no_account" />
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnRegister"
+                    style="@style/access_language"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:background="@null"
+                    android:text="@string/access_register" />
+            </LinearLayout>
         </LinearLayout>
-
-        <!-- Selector Idioma (ES / EN) -->
-        <LinearLayout
-            android:id="@+id/layoutLang"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="12dp"
-            android:background="@drawable/bg_lang_selector"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="4dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_card"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="4dp"
-                android:text="ES"
-                android:textColor="#FFFFFF"
-                android:textSize="12sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="10dp"
-                android:paddingVertical="4dp"
-                android:text="EN"
-                android:textColor="#64748B"
-                android:textSize="12sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <!-- Botón Tema -->
-        <ImageView
-            android:id="@+id/btnTheme"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:background="@drawable/bg_lang_selector"
-            android:padding="8dp"
-            android:src="@android:drawable/ic_menu_compass"
-            android:tint="#FFFFFF" />
-    </LinearLayout>
-
-    <!-- Título de Bienvenida -->
-    <TextView
-        android:id="@+id/tvWelcome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        android:text="Bienvenido/a"
-        android:textColor="#FFFFFF"
-        android:textSize="32sp"
-        android:textStyle="bold" />
-
-    <!-- Subtítulo -->
-    <TextView
-        android:id="@+id/tvSubtitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Elegí con qué perfil querés ingresar al club."
-        android:textColor="#94A3B8"
-        android:textSize="16sp" />
-
-    <!-- Opción 1: Soy socio -->
-    <LinearLayout
-        android:id="@+id/btnSocio"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/bg_card"
-        android:clickable="true"
-        android:focusable="true"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="20dp">
-
-        <TextView
-            android:id="@+id/iconSocio"
-            android:layout_width="52dp"
-            android:layout_height="52dp"
-            android:background="@drawable/bg_circle_yellow"
-            android:gravity="center"
-            android:text="S"
-            android:textColor="#071326"
-            android:textSize="22sp"
-            android:textStyle="bold" />
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Soy socio"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="Reservá clases y mira tus horarios"
-                android:textColor="#94A3B8"
-                android:textSize="14sp" />
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/arrowSocio"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="›"
-            android:textColor="#94A3B8"
-            android:textSize="24sp" />
-    </LinearLayout>
-
-    <!-- Opción 2: Soy profesor -->
-    <LinearLayout
-        android:id="@+id/btnProfesor"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/bg_card"
-        android:clickable="true"
-        android:focusable="true"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="20dp">
-
-        <TextView
-            android:id="@+id/iconProfesor"
-            android:layout_width="52dp"
-            android:layout_height="52dp"
-            android:background="@drawable/bg_circle_blue"
-            android:gravity="center"
-            android:text="P"
-            android:textColor="#071326"
-            android:textSize="22sp"
-            android:textStyle="bold" />
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Soy profesor"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="Gestioná tu agenda y asistencias"
-                android:textColor="#94A3B8"
-                android:textSize="14sp" />
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/arrowProfesor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="›"
-            android:textColor="#94A3B8"
-            android:textSize="24sp" />
-    </LinearLayout>
-
-</LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
